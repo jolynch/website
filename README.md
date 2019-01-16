@@ -1,2 +1,2 @@
-# personal_website
+# website
 Basic hugo based personal website

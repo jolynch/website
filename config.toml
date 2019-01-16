@@ -1,0 +1,4 @@
+baseURL = "https://jolynch.github.io/"
+languageCode = "en-us"
+title = "Joey Lynch's Site"
+theme = "xmin"
