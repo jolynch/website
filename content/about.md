@@ -2,7 +2,7 @@
 title: "About"
 author: "Joey Lynch"
 menu: "main"
-weight: 3
+weight: 6
 meta: false
 ---
 

@@ -1,7 +1,7 @@
 ---
 title: "Projects"
 menu: "main"
-weight: 6
+weight: 3
 meta: false
 ---
 
