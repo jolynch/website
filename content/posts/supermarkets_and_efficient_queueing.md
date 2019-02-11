@@ -31,15 +31,16 @@ I spend a lot of time waiting in line at Supermarkets, and I spend an
 enbarassing quantity of that time thinking about how they are making queueing
 theory tradeoffs. Supermarkets usually have multiple employees that can
 run cash registers, or bag groceries, or help customers. Customers arrive with
-varying durations of work, some of them are buying just a few items and some
-are buying massive quantities of food such as delicious Mac and Cheese.
+varying durations of work, some customers are buying just a few items and some
+are buying groceries for a family of ten for two weeks.
 
-This is just like a web service that a software engineer that works on the
+This is just like a service that a software engineer who works on the
 backend of a website might write, except that the food to check out
 are web requests and the employees are CPUs running a web worker (be it a
-thread or a process, it's still a worker). Often different requests are more
-expensive than others, they might require more computation, and our goal is
-to service them as quickly and fairly as possible.
+thread or a process, it's still a worker). Typcically some requests are more
+expensive than others meaning that they might require more computation or
+database work, and our goal is to service them as quickly and fairly as
+possible.
 
 It turns out that people who design supermarkets (food distribution engineers
 shall we say) and software engineers have similar goals: process the maximum
@@ -47,33 +48,111 @@ number of customers (requests) with most efficient use of employees (workers).
 
 Lesson #1: Use the right kind of queue
 --------------------------------------
-
 Supermarkets generally queue their customers in two ways:
 
-1. Have a separate queue for each register, customers self select based on
-   superstition or gut feeling.
+1. Have a separate queue for each register, customers self select with some
+   selection criteria (random, shortest, etc ...)
 2. Have a single queue where customers wait until they are dispatched to the
    first free register, typically through a signaling mechanism such as a
    flashing light.
 
-Which is better? It turns out that *by far* the second technique leads to higher
-throughput in terms of customers processed per minute and a much lower
-average slowdown in terms of how long customers wait to be checked out.
-This is because \<TODO:insert math\>
+Which is better?
+
+It turns out that the strategy #2 (single queue) is, *by far*, the better
+option, leading to superior [latency](https://en.wikipedia.org/wiki/Latency_(engineering))
+(the amount of time spent queued plus processing) and therefor also
+[throughput](https://en.wikipedia.org/wiki/Throughput) for a given number or
+processors. Having less latency in the queue also reduces "slowdown" which is a
+measure of how long you spend in the system vs how long your task takes (for
+example if a small job that takes 1s queues behind a large job that takes 9s,
+the small task has 10x slowdown).
 
 Intuitively we know that the second way is faster because the probability of
-you choosing a lane that has a "slow grandma" (less ageist might say a "large
-quantity of Mac and Cheese to check out) is significantly higher in the first
-method. With the first technique you are going to be stuck behind a slow
-grandma if *any* of the people in front of you turn out to be a slow task,
-vs in the second technique all of the registers have to be busy with slow
-grandma's before you will block behind one.
+you choosing a lane that has a "slow grandma" (or just a person with a lot of
+food to check out) is significantly higher in the first method. With the first
+technique you are going to be stuck behind a slow grandma if *any* of the
+people in front of you turn out to be a slow task, vs in the second technique
+*all* of the registers have to be busy with slow grandma's before you see that
+latency.
 
-This equally applies to computer programs: if you have more work to do then you
-have workers to do it, try to keep the work in a single queue as long as
-possible. When you do dispatch your work try to dispatch it to a worker that
-is free. For example if you're running a website try to give a request to a
-machine that has a free web worker _right now_.
+We can also *prove* the single queue is better with the help of a queueing
+theory model. The first option can be
+approximated as multiple [`M/M/1`
+queues](https://en.wikipedia.org/wiki/M/M/1_queue) with `1/c` the arrival rate
+per queue. The second queueing technique can be approximated as a single
+[`M/M/c` queue](https://en.wikipedia.org/wiki/M/M/c_queue).
+
+
+<a name="figure1"></a>
+
+
+| Our Queueing Options |
+|--------------------------------|
+|<center>![fdm_vs_mmk_queue](/img/fdm_vs_mmk_queue.svg)</center>|
+
+
+From [M. Harchol-Balter](#ref1) pg 273 we can work out the expected latency
+of these two systems:
+
+| Multiple Queues | Single Queue |
+| --------------- | ------------ |
+| {{< rendersvg "static/img/expected_fdm.svg" >}} | {{< rendersvg "static/img/expected_mmk.svg" >}} |
+
+<!--
+\begin{align*}
+E&[T]^{FDM} = \frac{c}{c * \mu - \lambda}
+\\
+\lambda &= \text{rate of arrival (1/s)} \\
+\mu &= \text{average rate of service (1/s)} \\
+c &= \text{number of workers} \\
+\end{align}
+-->
+
+
+<!--
+\begin{align*}
+E&[T]^{M/M/c} = \frac{1}{\lambda} * P_q * \frac{\rho}{(1-\rho)} + \frac{1}{\mu} \\
+\rho &= \frac{\lambda}{c * \mu} = \text{load factor} \\
+P_q &= \text{Pr(queueing on arrival)} \\
+\end{align*}
+-->
+
+Based on this, we can see that under light load (`P_q ~= 0`) the single queue
+absolutely *dominates* with mean latencies close to .
+
+I have built [a handy notebook]() for helping systems engineer to simulate
+such systems and the simulation clearly validates the theory:
+
+```
+Theory: E[T]_FDM = 1.43, E[T]_MMk = 0.44
+
+Simulation results
+------------------
+Strategy         |    mean |     var |     p50 |     p95 |     p99 |   p99.9 |
+Multiple Queues  |    1.41 |    1.83 |    1.00 |    4.11 |    6.13 |    7.96 |
+Single Queue     |    0.43 |    0.17 |    0.31 |    1.25 |    1.89 |    2.86 |
+
+```
+We can also clearly see that a single queue is better by plotting the response
+latencies:
+<center>![single_vs_multiple](/img/single_vs_multiple.png)</center>
+
+
+### Lesson #1a: Balance your Load
+
+It is fair to note that shoppers don't just show up at one queue or the other,
+indeed they follow some form of "load balancing" algorithm. As it turns out we
+can improve imensley on the abismal `FDM` results from above by using a
+smarter load balancing algorithm. 
+
+
+
+
+This equally applies to computer systems: if you temporarily have more work to
+do then you have workers to do it, try to keep the work in a single queue as
+long as possible. When you do dispatch your work try to dispatch it to a worker
+that is free. For example if you're running a website try to give a request to
+a web machine that has a free web worker _right now_.
 
 Lesson #2: When you have the wrong queue, cheat
 -----------------------------------------------
@@ -89,7 +168,7 @@ With speculative/tied requests we as the customer try to get the fastest
 service time by dispatching to two or more workers, and you take whichever gets
 there first. Crucially to be efficient we have to drop the redundant request
 when the first starts being processed, however, we can still get a nice latency
-improvement even without this cancellation \<TODO: link tail at scale\>.
+improvement even without this cancellation as shown in \[[2](#tail_at_scale)\].
 
 This is just like in a supermarket where a couple will split up and have one
 person wait at one register and the second person waits at a different
@@ -186,3 +265,15 @@ Military PX with single lines that dispatch to free workers instead of multiple
 checkout lines. Maybe more supermarkets will someday see the light of better
 queueing theory and I'll have less time to think about how I'm wasting time
 in line waiting to checkout.
+
+
+Citations
+=========
+<a name="ref1"></a>
+[1] M. Harchol-Balter, Performance Modeling and Design of Computer Systems:
+Queueing Theory in Action.
+
+<a name="tail_at_scale"></a>
+[2] Jeffery Dean and Luiz Andre Barroso, The Tail at Scale (https://ai.google/research/pubs/pub40801)
+
+
