@@ -30,4 +30,7 @@ topics:
   A talk I did with Josh Snyder at Velocity 2015 about how Yelp allowed
   developers to use polyglot datastores. Has architectural advice as well as
   practical advice.
-
+* [The Evolution of Elastic(Search) at Yelp](https://www.elastic.co/elasticon/2015/sf/evolution-of-elasticsearch-at-yelp) (2015):
+  A talk I did with Chris Tidder at ElasicOn 2015 about how Yelp built self
+  service Elasticsearch with sufficient abstractions to allow datastores to
+  be maintained and scaled to large engineering organizations.
