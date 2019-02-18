@@ -6,7 +6,7 @@ weight: 6
 meta: false
 ---
 
-[<img src="/img/jolynch.png" style="max-width:20%;min-width:60px;float:right;" alt="Joey Lynch Headshot"/>](https://jolynch.github.io)
+[<img src="/img/jolynch_thumbnail.png" style="max-width:20%;min-width:60px;float:right;" alt="Joey Lynch Headshot"/>](https://jolynch.github.io)
 
 Hi, my name is Joey Lynch. I mostly hack on open source distributed systems
 problems, but also enjoy economics, politics, and debate.
