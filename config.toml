@@ -8,7 +8,7 @@ theme = "xmin"
     weight = 1
     url = "/"
 [[menu.main]]
-    name = "Musings"
+    name = "Posts"
     weight = 2
     url = "/posts/"
 

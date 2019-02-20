@@ -9,10 +9,10 @@ I've mostly written blog posts and whitepapers, mostly for employers. I've
 included links here in case they might be interesting.
 
 * [Cassandra Availability with Virtual Nodes](/pdf/cassandra-availability-virtual.pdf)
-  (2018): A whitepaper I authored with Josh Snyder that gt attempted to formally model
-  Cassandra's availability under different numbers of tokens per node. TLDR:
-  use no more than 4 tokens if you want high availability in a Dynamo style
-  database. The paper is based on [this
+  (2018): A whitepaper I authored with Josh Snyder that attempted to formally
+  model Cassandra's availability under different numbers of tokens per node.
+  TLDR: use no more than 4 tokens if you want high availability in a Dynamo
+  style database. The paper is based on [this
   notebook](https://github.com/jolynch/python_performance_toolkit/blob/master/notebooks/cassandra_availability/cassandra_availability.ipynb)
 * [Taking Zero Downtime Load Balancing even Further](https://engineeringblog.yelp.com/2017/05/taking-zero-downtime-load-balancing-even-further.html) (2017): In this post I showed how Yelp had
   evolved their highly available and scalable service mesh based on SmartStack
