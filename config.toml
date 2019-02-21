@@ -11,7 +11,10 @@ theme = "xmin"
     name = "Posts"
     weight = 2
     url = "/posts/"
+[[menu.main]]
+    name = "RSS"
+    url = "/index.xml"
 
 [params]
-    description = "A personal website for Joey Lynch built with Hugo."
+    description = "A personal website for Joey Lynch."
     footer = "&copy; [Joey Lynch](https://jolynch.github.io) 2019 | [Github](https://github.com/jolynch)"
