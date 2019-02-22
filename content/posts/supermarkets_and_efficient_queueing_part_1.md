@@ -307,4 +307,4 @@ Queueing Theory in Action. ([google
 books](https://books.google.com/books?id=75SbigDGK0kC))
 
 <a name="tail_at_scale"></a>
-[2] Jeffery Dean and Luiz Andre Barroso, The Tail at Scale ([paper](https://ai.google/research/pubs/pub40801]))
+[2] Jeffrey Dean and Luiz Andre Barroso, The Tail at Scale ([paper](https://ai.google/research/pubs/pub40801]))
