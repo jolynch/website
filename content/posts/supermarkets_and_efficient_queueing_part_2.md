@@ -42,7 +42,7 @@ significantly because the slow tasks can't penalize the fast ones. This
 tradeoff exists because when there are few "fast" customers, you are effectively losing cashiers that could
 be servicing the slower masses.
 
-We can actually observe this in action by simulating such a biomodal workload,
+We can actually observe this in action by simulating such a bi-modal workload,
 something like a sum of two truncated Pareto distributions:
 
 <center>![slowdown_request_distribution](/img/slowdown_request_distribution.png)</center>

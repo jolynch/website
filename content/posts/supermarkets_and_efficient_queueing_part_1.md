@@ -3,9 +3,9 @@ title: "Supermarkets And Efficient Queueing: Part 1"
 date: 2019-02-19T12:00:00-00:00
 ---
 
-I'd like to kickoff the "distributed systems as food service analogy" series
+I'd like to kick off the "distributed systems as food service analogy" series
 with the basics. In this two part series I cover the basics of
-[**queuing theory**](https://en.wikipedia.org/wiki/Queueing_theory)
+[**queueing theory**](https://en.wikipedia.org/wiki/Queueing_theory)
 , and how we can understand it with the help of your every day supermarket or
 grocery store.
 
