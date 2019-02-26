@@ -107,11 +107,9 @@ Jimmy John's does three more things crucially right here:
    customer.
 
 Direct return is, in particular, really neat because it's what high performance
-routing layers like
-[Envoy](https://blog.envoyproxy.io/introduction-to-modern-network-load-balancing-and-proxying-a57f6ff80236)
-and Google's Maglev [[1](#maglev)] do to try to offload heavy network results off
-their load balancers (and instead have the servers return the bytes directly to
-the requester).
+routing layers like Google's Maglev [[1](#maglev)] do to try to offload heavy
+network results off their load balancers (and instead have the servers return
+the bytes directly to the requester).
 
 Trick #2: Parallel Pipelines
 ----------------------------
