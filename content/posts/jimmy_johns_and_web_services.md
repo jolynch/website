@@ -8,12 +8,12 @@ of my favorites: sandwich shops.
 Most sandwich places are absolutely terrible at efficiently processing my
 sandwich order. They have limited workers that constantly context switch and
 are entirely unable to pipeline (looking at you Subway). [Jimmy
-Johns](https://www.jimmyjohns.com/), however, is wonderfully efficient and a
+John's](https://www.jimmyjohns.com/), however, is wonderfully efficient and a
 model for all other sandwich places.
 
-In this post I will explore how Jimmy Johns operates as a high performance web
+In this post I will explore how Jimmy John's operates as a high performance web
 (micro)service might. When I worked at Yelp in San Francisco, I spent a great
-deal of time eating at Jimmy Johns, and a non trivial reason for that is that
+deal of time eating at Jimmy John's, and a non trivial reason for that is that
 it was so *efficient* at processing orders. I would show up and there would be
 a queue of 20-50 people, but I still got my sandwich in record time (a few
 minutes). At least the one near Yelp's SF office achieved this by operating as
@@ -39,11 +39,11 @@ of two minutes under heavy load leading to a `Slowdown` of ~4 and excellent
 end-to-end latency and therefore throughput. They are able to increase their
 throughput by accepting multiple concurrent orders (I typically observe about 5
 in flight) and fulfilling them all in parallel giving their throughput an even
-bigger boost. A quick online search indicates that Jimmy Johns actually
+bigger boost. A quick online search indicates that Jimmy John's actually
 holds a yearly [competition](https://vimeo.com/289769768) called "Sandwich
 Masters", so you know they take this seriously.
 
-My favorite part of this all though is that Jimmy Johns achieves these great
+My favorite part of this all though is that Jimmy John's achieves these great
 speeds using a number of tricks common in high performance web services that I
 have worked on.
 
@@ -127,7 +127,7 @@ to make multiple sandwiches in parallel, but they even sometimes re-order
 or prioritize orders to make sure that large complex orders don't unnecessarily
 slow down short orders. This in turn keeps mean processing time and mean
 slowdown way down. We can now add the parallel sandwich pipelines to the Jimmy
-Johns model:
+John's model:
 
 <center>![jj_system](/img/jimmy_johns_whole_system.svg)</center>
 
