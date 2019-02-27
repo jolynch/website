@@ -98,7 +98,7 @@ Jimmy John's does three more things crucially right here:
    the likelihood that a worker is idle.
 2. They have more than one accept worker in case an order takes a long time to
    accept. This helps ensure we don't run into the slow request problem where a
-   single slow item blocks the whole queue
+   single slow item blocks the whole queue.
 3. Finally, they hand the customer back the ticket and tell them to go to the
    end of the processing pipeline to receive their order _directly from the
    worker making the sandwich_. That's right, Jimmy John's does _direct return_
@@ -152,7 +152,7 @@ In the past few years, software engineers have realized that you can watch
 for pending demand changes and pre-compute the cache entries for that demand.
 For example, if you use [change data
 capture](https://en.wikipedia.org/wiki/Change_data_capture) (CDC) from your
-database to inform offline cache pre-compute systems which goes off, calculates
+database to inform offline cache pre-compute systems which go off, calculates
 the value a cache should have and writes it into the cache pre-emptively, you
 can significantly improve your cache hit rate and keep systems running fast. A
 common example of this in industry are cache invalidation systems like
@@ -180,7 +180,7 @@ in high performance computing:
 3. Increase sandwich output rate by using background workers to pre-fetch
    cache misses.
 
-Many food service shop do some of these techniques, but I am not aware of one
+Many food service shops do some of these techniques, but I am not aware of one
 that combines so many best practices in high performance systems engineering
 in one, very fast, sandwich making package.
 
