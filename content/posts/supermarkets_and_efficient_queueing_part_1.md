@@ -1,13 +1,15 @@
 ---
 title: "Supermarkets And Efficient Queueing: Part 1"
 date: 2019-02-19T12:00:00-00:00
+tags: ["distsys-as-food"]
 ---
 
-I'd like to kick off the "distributed systems as food service analogy" series
-with the basics. In this two part series I cover the basics of
-[**queueing theory**](https://en.wikipedia.org/wiki/Queueing_theory)
-, and how we can understand it with the help of your every day supermarket or
-grocery store.
+I'd like to kick off the
+["distributed systems as food service analogy"]({{< ref "/tags/distsys-as-food" >}})
+series with the basics. In this two part post I cover the basics of
+[**queueing theory**](https://en.wikipedia.org/wiki/Queueing_theory), and how
+we can understand it with the help of your every day supermarket or grocery
+store.
 
 * [Part 1]({{< relref supermarkets_and_efficient_queueing_part_1 >}}): Basics
   of queueing theory and minimizing latency.

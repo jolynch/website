@@ -12,6 +12,10 @@ theme = "xmin"
     weight = 2
     url = "/posts/"
 [[menu.main]]
+    name = "Series"
+    weight = 3
+    url = "/tags/"
+[[menu.main]]
     name = "RSS"
     url = "/index.xml"
 

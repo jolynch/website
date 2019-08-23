@@ -1,10 +1,14 @@
 ---
 title: "Supermarkets And Efficient Queueing: Part 2"
 date: 2019-02-20T00:00:00-01:00
+tags: ["distsys-as-food"]
 ---
 
-This post continues the two part series on queueing theory and understanding
-computer systems using supermarkets.
+This post wraps up the two part writeup on queueing theory and understanding
+computer systems using supermarkets within the larger
+["distributed systems as food service analogy"]({{< ref "/tags/distsys-as-food" >}})
+series.
+
 
 * [Part 1]({{< relref supermarkets_and_efficient_queueing_part_1 >}}): Basics
   of queueing theory and minimizing latency.

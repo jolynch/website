@@ -1,9 +1,11 @@
 ---
 title: "Jimmy John's is like a High-Performance Web Service"
 date: 2019-02-25T00:00:00-00:00
+tags: ["distsys-as-food"]
 ---
-Today on the "distributed systems as food service analogy" series we visit one
-of my favorites: sandwich shops.
+Today on the
+["distributed systems as food service analogy"]({{< ref "/tags/distsys-as-food" >}})
+series we visit one of my favorites: sandwich shops.
 
 Most sandwich places are absolutely terrible at efficiently processing my
 sandwich order. They have limited workers that constantly context switch and
