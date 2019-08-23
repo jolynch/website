@@ -1,10 +1,13 @@
 ---
 title: "Domino's Is A Pretty Good Content Delivery Network For Pizza"
 date: 2019-08-14T17:30:34-08:00
+tags: ["distsys-as-food"]
 draft: true
 ---
-Today on the "distributed systems as food service analogy" series we visit low
-latency pizza delivery and how they relate to Content Delivery Networks (CDN).
+Today on the
+["distributed systems as food service analogy"]({{< ref "/tags/distsys-as-food" >}})
+series we visit low latency pizza delivery and how they relate to Content
+Delivery Networks (CDN).
 
 Like with [Jimmy John's]({{< relref jimmy_johns_and_web_services >}}), I often
 order Domino's pizza not because it tastes particularly good but because
@@ -12,8 +15,8 @@ Domino's is one of the only pizza places I know that offer a latency service
 level objective ([SLO](https://en.wikipedia.org/wiki/Service-level_objective))
 of less than thirty minutes. To achieve this promise, they use a number of
 common techniques used by Content Delivery Networks (CDNs) to ensure web
-content such as photos, code (javascript) and even videos get to your browser
-or device quickly.
+content such as photos, code and even videos get to your browser or device
+quickly.
 
 In this post we'll see how large online services keep their latencies low to
 the user by observing the strategies that Domino's in particular, and pizza
@@ -23,8 +26,8 @@ Technique #1: Many Points of Presence
 =====================================
 
 The primary way that Domino's ensures low latency to your door is by having
-a large number of what the tech industry call's ["Points of
-Presence"](https://en.wikipedia.org/wiki/Point_of_presence) aka `PoP`s. These
+a large number of what the tech industry calls ["Points of
+Presence"](https://en.wikipedia.org/wiki/Point_of_presence) a.k.a `PoP`s. These
 `PoP`s are physically close to the customer, which in the case of Domino's
 means a driver can actually reach you within the thirty minute SLO. By placing
 stores near users, Domino's is able to reduce the average latency that their
@@ -39,11 +42,11 @@ might work where a large store services many customers:
 <center>![dominos_big_pizza](/img/dominos_big_pizza.svg)</center>
 
 In this visualization a single grid tick represents one minute of time, so
-our first customer spends about 2 minutes ordering his pizza, then the pizza
-shop spends about 12 minutes lovingly hand tossing the dough and cooking the
-pizza, and then the delivery driver must drive close to 20 minutes to get to
-their door. In this example the end to end latency works out to ~35 minutes for
-`Alice` and ~30 for `Bob`.
+our first customer `Alice` spends about 2 minutes ordering her pizza, then the
+pizza shop spends about 12 minutes lovingly hand tossing the dough and cooking
+the pizza, and then the delivery driver must drive close to 20 minutes to get
+to their door. In this example the end to end latency works out to ~35 minutes
+for `Alice` and ~30 for `Bob`.
 
 On the other hand, Domino's splits their pizza making endeavors into many
 smaller points of presence which are closer to their customers. This model
@@ -52,18 +55,18 @@ bringing the delivery ETA to under the 30 minute SLO!
 
 <center>![dominos_small_pizza](/img/dominos_small_pizza.svg)</center>
 
-As it turns out, this is more or less exactly how large websites like Google,
-Facebook, and Netflix guarantee low latency delivery of webpages, images and
-very importantly video. All of these services rely heavily on similar `PoP`s
-that are physically proximate to (likely in the same building) local internet
+As it turns out, this is similar to how large websites like Google, Facebook,
+and Netflix guarantee low latency delivery of webpages, images and very
+importantly video. All of these services rely heavily on many small `PoP`s that
+are physically proximate to (likely in the same building) local internet
 service providers (ISPs). These `PoP`s store large, typically static, content
-such as client side code (javascript), images (mostly cat pictures), and of
-course videos. This global storage network is called a content delivery
-network and while web services might run their core business logic from a
-relatively small (~10s) number of large datacenters that are likely hundreds of
-milliseconds away, customers can often be served entirely from a local `PoP`
-which is plugged directly into the local ISPs. This technique shaves orders
-of magnitude off the latency that customers experience.
+such as client side code (javascript/css/html), images, and of course videos.
+While web services might run their core business logic from a relatively small
+number of large datacenters that are likely hundreds of miles (and
+milliseconds) away, customers can often be served a large percentage of their
+content entirely from a local `PoP` which is plugged directly into the local
+ISPs. This technique shaves orders of magnitude off the latency that customers
+experience.
 
 Technique #2: Pre-compute All the Things
 ========================================
@@ -90,25 +93,35 @@ fast pizza making, and happy customers!
 <center>![dominos_full](/img/dominos_pizza_full.svg)</center>
 
 Is it lovingly hand tossed and finished with freshly cut vegetables and meats?
-No, but it is extremely efficient and honestly, I kinda like the end result!
+No, but it is extremely efficient and honestly, I enjoy the end result!
 
 The most apt analogy for this is how tech companies pre-compute their
 static assets (code, images, video) in various formats and packages before
-they upload them to the CDNs. For example Netflix might encode a given
-movie in various bitrates ahead of time so that the CDN just has to deliver
-the right one. Another example is how Facebook pre-computes image thumbnails
-and uploads all the various sizes and shapes of a given image asset to their
-CDN so that, again, all the CDN has to do is return the right asset. A typical
-web architecture that uses CDNs looks somewhat familiar:
+they upload them to the CDNs. For instance, Netflix might encode a given movie
+in various
+[bitrates](https://medium.com/netflix-techblog/per-title-encode-optimization-7e99442b62a2)
+ahead of time so that the CDN just has to deliver the right one. Another
+example is how Facebook pre-computes image thumbnails and uploads all the
+various sizes and shapes of a given image asset to their CDN so that, again,
+all the CDN has to do is return the right asset. A typical web architecture
+that uses CDNs looks somewhat familiar:
 
 <center>![dominos_cdn](/img/dominos_cdn.svg)</center>
+
+The only request that must be served from the far away website servers is the
+initial "control plane"/"business logic" request, and then all of the content
+itself can be fetched directly from the local `PoP`. Some CDNs are even
+starting to offer the ability to run logic that has historically happened
+server side
+[on the edge](https://blog.cloudflare.com/cloudflare-workers-unleashed/) to
+bring down latency even further.
 
 Imperfect Analogy
 =================
 
 The CDN and Domino's analogy isn't perfect though. In particular, Domino's
 either doesn't have to or cannot do some of the more interesting techniques
-that CDNs must do to meet latency SLOs.
+that CDNs and their customers must do to meet latency SLOs.
 
 One such interesting technique that websites can use but that Domino's can't is
 where browsers or applications fetch static content from CDNs before it is
@@ -129,10 +142,9 @@ which for the record I would personally be a fan of.
 Summary: There is No Way Around Latency
 =======================================
 
-In this post we learned how with some relatively simple techniques (and as
-before a lot of pre-compute), Domino's is able to deliver pizzas to your door
-fast just like web services serve up pictures of cat pictures fast. Both
-systems:
+In this post we learned how with some relatively simple techniques, Domino's is
+able to deliver pizzas to your door with low latency just like web services
+serve up pictures of cat pictures quickly. Both systems:
 
 1. Utilize many hundreds of Points of Presence (`PoP`s) to drive latency
    down.
