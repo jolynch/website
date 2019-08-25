@@ -7,4 +7,3 @@
 [submodule "public"]
 	path = public
 	url = git@github.com:jolynch/jolynch.github.io.git
-	branch = master
