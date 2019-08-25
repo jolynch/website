@@ -12,7 +12,7 @@ theme = "xmin"
     weight = 2
     url = "/posts/"
 [[menu.main]]
-    name = "Series"
+    name = "Tags"
     weight = 3
     url = "/tags/"
 [[menu.main]]

@@ -22,17 +22,23 @@ Distributed Systems
   integrations, but I did help port the whole codebase to Python 3 so that was
   interesting...
 * [`jvmquake`](https://github.com/jolynch/jvmquake) agent for rescuing
-  distributed Java databases from themselves by killing them when they go
-  sideways. This is basically an extension of
-  [`jvmkill`](https://github.com/airlift/jvmkill) that also detects GC spirals of
-  death.
+  distributed Java databases from themselves by killing them (while grabbing
+  a core dump) when they enter JVM death spirals. This is basically an
+  extension of [`jvmkill`](https://github.com/airlift/jvmkill) that also
+  detects GC spirals of death.
 * [`Priam`](https://github.com/Netflix/Priam) distributed sidecar for Apache
   Cassandra. I work on this at Netflix, improving operability of Cassandra.
 
 
-Debugging
----------
+Debugging / Performance Analysis
+--------------------------------
 
+* [`performance-analysis`](https://github.com/jolynch/performance-analysis)
+  collection of [`jupyter`](https://github.com/jupyter) notebooks and various
+  python I've used to analyze the performance of various service or database
+  setups. Perhaps one of the more interesting ones is my notebook for modeling
+  Cassandra availability with different numbers of
+  [vnodes](https://github.com/jolynch/performance-analysis/tree/master/notebooks/cassandra_availability)
 * [`cqltrace`](https://github.com/jolynch/cqltrace) dynamic tracer for observing
   live CQL traffic in real time. I mostly use this for debugging Cassandra
   clients and their performance.
@@ -47,12 +53,6 @@ Educational
   [`gevent`](https://github.com/gevent/gevent) and
   [`nginx`](https://github.com/nginx/nginx) production ready. This means high
   scalability and low latency with a typical microservice setup.
-* [`python_performance_toolkit`](https://github.com/jolynch/python_performance_toolkit)
-  collection of [`jupyter`](https://github.com/jupyter) notebooks I've used
-  to analyze the performance of various service or database setups. Perhaps one
-  of the more interesting ones is my notebook for modeling Cassandra
-  availability with different numbers of
-  [vnodes](https://github.com/jolynch/python_performance_toolkit/tree/master/notebooks/cassandra_availability)
 
 Economics
 ---------
