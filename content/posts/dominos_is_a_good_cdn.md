@@ -1,8 +1,7 @@
 ---
 title: "Domino's Is A Pretty Good Content Delivery Network For Pizza"
-date: 2019-08-14T17:30:34-08:00
+date: 2019-08-31T00:00:00-08:00
 tags: ["distsys-as-food"]
-draft: true
 ---
 Today on the
 ["distributed systems as food service analogy"]({{< ref "/tags/distsys-as-food" >}})
@@ -14,7 +13,7 @@ order Domino's pizza not because it tastes particularly good but because
 Domino's is one of the only pizza places I know that offer a latency service
 level objective ([SLO](https://en.wikipedia.org/wiki/Service-level_objective))
 of less than thirty minutes. To achieve this promise, they use a number of
-common techniques used by Content Delivery Networks (CDNs) to ensure web
+common techniques used by Content Delivery Networks (CDNs) to ensure that web
 content such as photos, code and even videos get to your browser or device
 quickly.
 
@@ -32,12 +31,12 @@ Presence"](https://en.wikipedia.org/wiki/Point_of_presence) a.k.a `PoP`s. These
 means a driver can actually reach you within the thirty minute SLO. By placing
 stores near users, Domino's is able to reduce the average latency that their
 customers experience. It isn't enough, however, to just place pizza stores
-physically proximate to homes, they have to be near major highways or transport
+physically proximate to homes – they must be near major highways or transport
 arteries so the delivery drivers can cover a particular delivery area in under
 thirty minutes.
 
-You can understand this intuitively by looking at how a "Big Pizza Shop" model
-might work where a large store services many customers:
+You can understand this intuitively by first looking at how a more traditional
+"Big Pizza Shop" model might work where a large store services many customers:
 
 <center>![dominos_big_pizza](/img/dominos_big_pizza.svg)</center>
 
@@ -56,9 +55,9 @@ bringing the delivery ETA to under the 30 minute SLO!
 <center>![dominos_small_pizza](/img/dominos_small_pizza.svg)</center>
 
 As it turns out, this is similar to how large websites like Google, Facebook,
-and Netflix guarantee low latency delivery of webpages, images and very
-importantly video. All of these services rely heavily on many small `PoP`s that
-are physically proximate to (likely in the same building) local internet
+and Netflix guarantee low latency delivery of webpages, images, and very
+importantly, video. All of these services rely heavily on many small `PoP`s that
+are physically proximate (likely in the same building) to local internet
 service providers (ISPs). These `PoP`s store large, typically static, content
 such as client side code (javascript/css/html), images, and of course videos.
 While web services might run their core business logic from a relatively small
@@ -71,7 +70,7 @@ experience.
 Technique #2: Pre-compute All the Things
 ========================================
 
-To meet the thirty minute SLO Domino's can't just have nearby stores, they
+To meet the thirty minute SLO Domino's can't just have nearby stores – they
 also have to be able to make the pizzas extremely quickly. While I have
 never personally worked in a Domino's store, when I have on occasion visited
 them it appears to me that they are making heavy use of pre-compute, where
@@ -125,15 +124,15 @@ that CDNs and their customers must do to meet latency SLOs.
 
 One such interesting technique that websites can use but that Domino's can't is
 where browsers or applications fetch static content from CDNs before it is
-actually needed a.k.a "pre-fetch".  Naturally if Domino's did this it would
-lead to many confusing doorbell rings but I have often wondered how hard it
+actually needed (a.k.a "pre-fetch").  Naturally, if Domino's did this it would
+lead to many confusing doorbell rings, but I have often wondered how hard it
 would be for Domino's to use a predictive model to forecast what toppings will
 be most popular in a given town or time of week and optimize their just in time
 network accordingly.
 
 Another hard problem that tech companies have to solve that Domino's can skip
 is which assets to store in the CDN and which assets to not store in the CDN.
-Certainly there are some CDN use cases which are a total cache (the full
+Certainly, there are some CDN use cases which are a total cache (the full
 dataset is stored on every `PoP`), but for really huge caches you have to be
 selective about what you put where. The only way Domino's would run into this
 is if they started offering orders of magnitude more toppings and configurations,
@@ -143,8 +142,8 @@ Summary: There is No Way Around Latency
 =======================================
 
 In this post we learned how with some relatively simple techniques, Domino's is
-able to deliver pizzas to your door with low latency just like web services
-serve up pictures of cat pictures quickly. Both systems:
+able to deliver pizzas to your door with low latency just like web services are able to
+serve up pictures of cats quickly. Both systems:
 
 1. Utilize many hundreds of Points of Presence (`PoP`s) to drive latency
    down.
