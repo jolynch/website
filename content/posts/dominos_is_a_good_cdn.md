@@ -10,12 +10,12 @@ Delivery Networks (CDN).
 
 Like with [Jimmy John's]({{< relref jimmy_johns_and_web_services >}}), I often
 order Domino's pizza not because it tastes particularly good but because
-Domino's is one of the only pizza places I know that offer a latency service
-level objective ([SLO](https://en.wikipedia.org/wiki/Service-level_objective))
-of less than thirty minutes. To achieve this promise, they use a number of
-common techniques used by Content Delivery Networks (CDNs) to ensure that web
-content such as photos, code and even videos get to your browser or device
-quickly.
+Domino's is efficient! They are one of the only pizza places I know that offer
+a latency service level objective
+([SLO](https://en.wikipedia.org/wiki/Service-level_objective)) of less than
+thirty minutes. To achieve this promise, they use a number of common techniques
+used by Content Delivery Networks (CDNs) to ensure that web content such as
+photos, code and even videos get to your browser or device quickly.
 
 In this post we'll see how large online services keep their latencies low to
 the user by observing the strategies that Domino's in particular, and pizza
