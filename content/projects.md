@@ -28,6 +28,11 @@ Distributed Systems
   detects GC spirals of death.
 * [`Priam`](https://github.com/Netflix/Priam) distributed sidecar for Apache
   Cassandra. I work on this at Netflix, improving operability of Cassandra.
+* [`pinch`](https://github.com/jolynch/pinch) toolkit for compressing, hashing
+  and moving data around as fast as you can around a network. This is just
+  a docker container with all of my favorite data compression and validation
+  tools built in (e.g. `zstd`, `lz4`, `xxhash` etc ...) and soon some helpers
+  for moving large datasets to and from S3.
 
 
 Debugging / Performance Analysis
@@ -35,9 +40,9 @@ Debugging / Performance Analysis
 
 * [`performance-analysis`](https://github.com/jolynch/performance-analysis)
   collection of [`jupyter`](https://github.com/jupyter) notebooks and various
-  python I've used to analyze the performance of various service or database
-  setups. Perhaps one of the more interesting ones is my notebook for modeling
-  Cassandra availability with different numbers of
+  python scripts I've used to analyze the performance of various service or
+  database setups. Perhaps one of the more interesting ones is my notebook for
+  modeling Cassandra availability with different numbers of
   [vnodes](https://github.com/jolynch/performance-analysis/tree/master/notebooks/cassandra_availability)
 * [`cqltrace`](https://github.com/jolynch/cqltrace) dynamic tracer for observing
   live CQL traffic in real time. I mostly use this for debugging Cassandra
