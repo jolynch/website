@@ -1,4 +1,5 @@
 baseURL = "https://jolynch.github.io/"
+googleAnalytics = "UA-155022966-1"
 languageCode = "en-us"
 title = "Joey Lynch's Site"
 theme = "xmin"
