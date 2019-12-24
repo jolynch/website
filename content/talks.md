@@ -9,6 +9,15 @@ Below are a collection of conference talks or other presentations that I've
 given, typically related to distributed systems or other software engineering
 topics:
 
+* [How Netflix Debugs and Fixes Apache Cassandra When it Breaks](https://github.com/ngcc/ngcc2019/blob/master/HowNetflixDebugsAndFixesApacheCassandraWhenItBreaks.pdf) (2019):
+  A talk at ApacheCon 2019 I gave about how to debug and scientifically analyze
+  performance bottlenecks in Apache Cassandra. This is a very good "help I'm
+  going oncall for Cassandra" introduction to basic tools and techniques.
+* [How Netflix manages petabyte scale Apache Cassandra](https://github.com/ngcc/ngcc2019/blob/master/HowNetflixManagesPetabyteScaleApacheCassandraInTheCloud.pdf) (2019):
+  A talk at ApacheCon 2019 I gave with Vinay Chella about how we design
+  declarative control planes to orchestrate thousands of independently scaling
+  Cassandra Clusters. Essentially this talk is "how to make your own
+  self-driving database".
 * [Iterating on Stateful Services in the Cloud](https://www.youtube.com/watch?v=valsEK5mIQI) (2018):
   A talk at re:Invent 2018 about how Netflix manages stateful services (such
   as datastores or databases) in the AWS cloud. Contains a lot of concrete

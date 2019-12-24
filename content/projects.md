@@ -22,8 +22,8 @@ Distributed Systems
   integrations, but I did help port the whole codebase to Python 3 so that was
   interesting...
 * [`jvmquake`](https://github.com/jolynch/jvmquake) agent for rescuing
-  distributed Java databases from themselves by killing them (while grabbing
-  a core dump) when they enter JVM death spirals. This is basically an
+  distributed databases written in Java from themselves by killing them (while
+  grabbing a core dump) when they enter JVM death spirals. This is basically an
   extension of [`jvmkill`](https://github.com/airlift/jvmkill) that also
   detects GC spirals of death.
 * [`Priam`](https://github.com/Netflix/Priam) distributed sidecar for Apache
