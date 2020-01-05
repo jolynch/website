@@ -1,11 +1,11 @@
 ---
-title: "Semver Must Evolve"
+title: "SemVer Must Evolve"
 date: 2019-09-01T12:57:26-07:00
 draft: true
 ---
 
 In the past ten years or so [Semantic Versioning](https://semver.org) a.k.a
-"semver" has become extremely popular in the software development world. The
+"SemVer" has become extremely popular in the software development world. The
 idea is that packages and libraries can convey information to users about how
 the application programming interface (API) of that library/package/service is
 evolving just using the version number. This information is conveyed through
@@ -35,9 +35,10 @@ Patch: this number goes up when the public API doesn't change
 Armed with this information, software developers can theoretically upgrade
 without fear of the new version breaking their code.
 
-**In practice, this versioning scheme is a _very bad idea_**
+How SemVer breaks
+=================
 
-It is bad because:
+In practice, this versioning scheme can be pretty problematic, for example:
 
 1. Most packaging systems (deb, rpm, python, ruby, java, etc ...) cannot
    simultaneously host multiple major versions of a given package.
@@ -52,10 +53,10 @@ which happen because developers, somewhat reasonably, don't want to release
 a public API they will have to stand behind until they can be certain they
 can.
 
-Proposal 1: Breaking Versions Should Co-Habitate
-================================================
+Problem: Breaking Versions Should Co-Habitate
+---------------------------------------------
 
-The existence of the major version number in semver is by far the most
+The existence of the major version number in SemVer is by far the most
 problematic in practice. In an ideal world packaging systems and programming
 languages automatically namespace different major versions, and code that depends
 on a particular major dep would have all references automatically re-written
@@ -76,15 +77,16 @@ Java developers often resort to hacks like package path rewriting.
 
 **Python libraries (`pip`)**: While the Python community moved towards isolated
 virtual environments which does make this issue slightly less of an issue (and
-with e.g.  dhvirtualenv [todo link] it gets even better), you still can't
-install multiple versions of the same package in the same virtualenv. Most
-projects I am aware of either don't work around this and break all the things,
-or release multiple package names.
+with tools like `docker` or
+[`dhvirtualenv`](https://github.com/spotify/dh-virtualenv) it gets even
+better), you still can't install multiple versions of the same package in the
+same virtualenv. Most python projects I am aware of either don't work around
+this and break all the things, or release multiple package names.
 
 This problem is even worse for client libraries, where the library is wrapping a
 remote (often backwards incompatible) API change. For me this has been one of the
 hardest parts of upgrading distributed datastores that I work on because we
-often can't use the vanilla client libraries to during migration (e.g.  Curator
+often can't use the vanilla client libraries during migration (e.g.Curator
 2 vs Curator 4, Elasticsearch 2 vs 5, etc ...). Instead we usually end up
 creating a temporary fork and renaming the package internally so we can run
 both datastore APIs at the same time and have the client gracefully migrate
@@ -93,7 +95,7 @@ from the old version to the new one.
 In an ideal world remote APIs would remain backwards compatible for at least a
 single major version to give users an upgrade path, but for some reason I find
 that many developers argue that they don't need to remain backwards compatible
-across a major version (this is what semver says after all ...). So we are
+across a major version (this is what SemVer says after all ...). So we are
 left with a reasonably simple option: **put the major version in the name of
 the package.**
 
@@ -105,35 +107,38 @@ example migrations I have used this technique to successfully migrate are:
   An extremely prevalent library for accessing AWS services
 * `elasticsearch` to `elasticsearch2` (Python, [motivation](https://github.com/elastic/elasticsearch-py/issues/515)): A Python client library for the
    Elasticsearch search engine.
-* Every linux kernel ever.
+* Every linux kernel package ever.
 
 
-Proposal 2: Versions Should be Traceable to Code
-================================================
+Problem: Versions Should be Traceable to Code
+---------------------------------------------
 
 I think software engineers spend a non trivial amount of time trying to figure out
 "what actually changed between these two versions". One of the explicit goals of
-`semver` was to help developers reason about change. As a developer myself I
+`SemVer` was to help developers reason about change. As a developer myself I
 accidentally break things in minor versions all the time, so I understand that
 this can happen. I don't so much mind the breakage as being unable to debug what
 broke since everybody has different ways of relating versions to code.
 
 Some projects do use [git
 tags](https://git-scm.com/book/en/v2/Git-Basics-Tagging) to achieve this, but
-this isn't mandatory so some projects don't do it. The commit `SHA` may in some
+this isn't mandatory so some projects don't do it. The commit id may in some
 cases be better identifier since it must exist and git has a really easy way to
 view changes between two commits, as far as I know the commit id is always
 easily comparable in practically every source control system.
 
 
-Proposal: Semver Evolved
+Proposal: SemVer Evolved
 ========================
 
-I propose a simple evolution to `semver` in which we eliminate the major
+I propose a simple evolution to `SemVer` in which we eliminate the major
 version entirely. Package names are sufficient to indicate an API has changed.
 For example, `elasicsearch5` is the python library that functions with the
-Elasticsearch server version 5. We then shift all numbers up by one and add
-a code identifier.
+Elasticsearch server version 5. Applications such as Elasticsearch or Cassandra
+would release named OS packages, One possibly example for Cassandra might be
+`cassandra-21x`, `cassandra-30x`, `cassandra-311x`, and `cassandra-40x` for the
+`2.1`, `3.0`, `3.11`, `4.0` branches respectively. We then shift all numbers up
+by one and add a code identifier.
 
 
 <center><h3> Better Semantic Version Numbers </h3></center>
@@ -184,11 +189,12 @@ descriptive than "it's a zero dot release".
 # 12.34.9bd9aeee -> 13.0.625cd1dc
 
 # Command line
-git diff 9bd9aeee 625cd1dc 
+git diff 9bd9aeee 625cd1dc
 
 # Github
+https://github.com/org/project/compare/9bd9aeee..625cd1dc
 
-# No SHA implies version tags
+# No commit id implies the existance of version tags
 # 12.34 -> 13.0
 # Command line
 git diff v12.34 v13.0
@@ -210,4 +216,4 @@ packaging tooling the merge issue can be resolved. For example in Python
 libraries you can use relative imports and then all that is different between
 branches is the name of the package in `setup.py`. Sometimes it is harder, like
 in Java the best tool I've found for this is package re-writing while
-generating the jar via the shadow plugin [TODO link].
+generating the jar via the [shadow plugin](https://imperceptiblethoughts.com/shadow/).
