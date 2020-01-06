@@ -1,7 +1,7 @@
 ---
 title: "Supermarkets And Efficient Queueing: Part 2"
 date: 2019-02-20T00:00:00-01:00
-tags: ["distsys-as-food"]
+tags: ["distsys-as-food", "real-life-queueing"]
 ---
 
 This post wraps up the two part writeup on queueing theory and understanding

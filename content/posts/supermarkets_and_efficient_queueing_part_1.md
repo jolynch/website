@@ -1,7 +1,7 @@
 ---
 title: "Supermarkets And Efficient Queueing: Part 1"
 date: 2019-02-19T12:00:00-00:00
-tags: ["distsys-as-food"]
+tags: ["distsys-as-food", "real-life-queueing"]
 ---
 
 I'd like to kick off the
