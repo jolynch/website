@@ -20,7 +20,12 @@ but sometimes I just hack on [projects]({{< ref projects >}}) for fun.
 
 I also sometimes write about computers either somewhat [formally]({{< ref
 publications >}}) or more for [fun]({{< ref posts >}}). Occasionally I even
-get to give [presentations]({{< ref talks >}}).
+get to give [presentations]({{< ref talks >}}) about what I work on.
 
-Posts
-=====
+Recent Posts
+============
+
+Some recent posts I've written are available below. If you want to see them
+all head over to [posts]({{< ref posts >}}) or check out one of my
+[series]({{< ref tags >}}).
+
