@@ -132,10 +132,11 @@ This helps users balance load to the least busy DMV office.
 <center>![dmv time of day load](/img/dmv_time_distribution.svg)</center>
 
 In this case a customer may choose to attend the green (long-dashed) DMV
-because it will be faster for them. This is similar to the "Join Shorted Queue"
-[load balancing algorithm we saw earlier]({{< relref supermarkets_and_efficient_queueing_part_1 >}}#lesson-2-balance-your-load) and while it isn't as advanced as some
-alternative load balancing algorithms, it is something humans intuitively
-understand: to go where the line is shortest.
+because it will be faster for them. This is similar to the "Join Shortest
+Queue" [load balancing algorithm we saw earlier]({{< relref
+supermarkets_and_efficient_queueing_part_1 >}}#lesson-2-balance-your-load) and
+while it isn't as advanced as some alternative load balancing algorithms, it is
+something humans intuitively understand: to go where the line is shortest.
 
 Step 3: Optimize Queueing for Long Tailed Distributions
 =======================================================
