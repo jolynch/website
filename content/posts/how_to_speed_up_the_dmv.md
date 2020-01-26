@@ -1,6 +1,6 @@
 ---
 title: "How to Speed up the DMV"
-date: 2020-01-02T12:00:00-08:00
+date: 2020-01-25T12:00:00-08:00
 tags: ["real-life-queueing"]
 ---
 
