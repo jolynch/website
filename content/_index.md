@@ -9,7 +9,7 @@ draft: false
 Joey Lynch
 ==========
 
-Hullo! This site is a collection of various thoughts or problems that I have
+Hi! This site is a collection of various thoughts or problems that I have
 worked on over the years that I thought might be worth writing down and
 keeping track of. Most of the content should involve computers, but it may also
 dive into economics as well.

@@ -115,6 +115,10 @@
     url('../fonts/milo-secondary-subset-bd-it.woff2') format('woff2'),
     url('../fonts/milo-secondary-subset-bd-it.woff') format('woff');
 }
+head {
+  font-family: MiloTE, MiloTESec, Optima, Candara, Calibri, Arial, sans-serif;
+  font-size: 20.25px;
+}
 
 body {
   font-family: MiloTE, MiloTESec, Optima, Candara, Calibri, Arial, sans-serif;
