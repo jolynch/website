@@ -4,7 +4,7 @@ date: 2020-06-21T12:57:26-07:00
 tags: ["software-opinions"]
 ---
 
-In the past ten years or so [Semantic Versioning](https://semver.org) a.k.a
+In the past ten years or so, [Semantic Versioning](https://semver.org) a.k.a
 "SemVer" has become extremely popular in the software development world. The
 idea is that libraries and services can convey information to users about how
 the application programming interface
@@ -51,7 +51,7 @@ frequently are:
    simultaneously host multiple major versions of a given package. This often
    leaves users unable to upgrade to the latest major version due to
    (reasonable) fear of breakages.
-2. Frequent major version bumps break frequently break functional code, leading
+2. Frequent major version bumps frequently break functional code, leading
    to [dependency hell](https://en.wikipedia.org/wiki/Dependency_hell) where
    library/service authors mix and match min, max, and exact version pins on
    major versions to try to work around various incompatibilities. These pins
@@ -84,15 +84,15 @@ we do not live in an ideal world and most packaging systems simply don't
 support this.  Three examples that I personally struggle with frequently:
 
 **Debian packages (`apt`/`aptitude` in particular)**: You only get one version
-and the higher one is almost always chosen even if that may break less than
+and the higher one is almost always chosen even if that may break less-than
 pins. A common practice with debian packages to work around these limitations
 is to release new packages with a different name.
 
 **Java libraries (`mvn`/`gradle` in particular)**: In a given class path you
-can only have one implementation of a given package, even if you manage to
-convince gradle or maven to pull down multiple versions of a `.jar` good luck
-getting the JVM to not just arbitrarily pick one implementation. As a result
-Java developers often resort to hacks like
+can only have one implementation of a given package. Even if you manage to
+convince gradle or maven to pull down multiple versions of a `.jar`, good luck
+getting the JVM to not pick one implementation arbitrarily. As a result, Java
+developers often resort to hacks like
 [package path rewriting](https://imperceptiblethoughts.com/shadow/).
 
 **Python libraries (`pip`)**: While the Python community has moved towards
@@ -100,7 +100,7 @@ isolated virtual environments which does make this issue slightly less of an
 issue (and with tools like `docker` or
 [`dhvirtualenv`](https://github.com/spotify/dh-virtualenv) it gets even
 better), you still can't install multiple versions of the same package in the
-same virtualenv. Most python projects I am aware of either don't work around
+same virtualenv. Most Python projects I am aware of either don't work around
 this and break all the things, or release multiple package names.
 
 These problems are even worse for client libraries, where the library is wrapping a
@@ -120,9 +120,9 @@ major version (this is what SemVer says after all ...). I wish this argument
 was soundly rejected.
 
 How can we fix this problem given the current constraints we operate under?
-Well, we are left with a reasonably simple option: **put the api version
-semantics in the name of the package.** Some example API migrations I have been
-able to take advantage of this technique are:
+Well, we are left with a reasonably simple option: **put the API version
+semantics in the name of the package.** Some example API migrations where I
+have been able to take advantage of this technique are:
 
 * `boto` to `boto3` (Python,
   [docs](https://boto3.amazonaws.com/v1/documentation/api/latest/index.html)):
@@ -135,7 +135,8 @@ able to take advantage of this technique are:
 * Cassandra's Thrift API
   ([Netflix Astyanax](https://github.com/Netflix/Astyanax))
   to Cassandra's CQL API
-  ([Datastax Java Driver](https://github.com/datastax/java-driver))
+  ([Datastax Java Driver](https://github.com/datastax/java-driver)): The client
+  drivers for the Cassandra database.
 
 
 Reduce the Fear: Binary Versions Can be Traced to Source
@@ -145,8 +146,8 @@ In my experience, software engineers spend a non trivial amount of time trying
 to figure out "what actually changed between these two released versions". One
 of the explicit goals of `SemVer` was to help developers reason about change.
 As a developer myself I accidentally break things in minor versions all the
-time, so I understand that this can happen. I don't so much mind the breakage
-as being unable to debug what broke since projects use many different ways of
+time, so I understand that this can happen. I don't mind the breakage as much
+as being unable to debug what broke, since projects use many different ways of
 relating released versions to code.
 
 Some projects do use [git
@@ -176,7 +177,7 @@ Both of these problems can be remedied with a straightforward evolution to
 semantic information in the package name and version number. I call it
 semantic package names and it consists of two changes:
 
-1. Use package (=module) names to indicate an API has broken
+1. Use package (=module) names to indicate an API has broken, not versions.
 2. Attempt to include a source identifier in the version.
 
 For example, `elasicsearch5` is the python library that functions with the
@@ -190,9 +191,9 @@ I know this is not new, many software projects already follow this kind of schem
 such as the Linux kernel (a.k.a "Never break userspace") or the Go
 [programming language](https://golang.org/cmd/go/#hdr-Module_compatibility_and_semantic_versioning).
 I just believe that if every software project and language I interacted with
-followed this pattern the whole industry would become more efficient. I have
-also found myself using this technique internally to every company I've worked
-at to manage software change.
+followed this pattern the whole industry would become more efficient and spend
+less time fearing dependency updates. I have also found myself using this
+technique internally to every company I've worked at to manage software change.
 
 In addition to using semantic package names, I prefer when packages include a
 fourth piece of metadata in their version number indicating the source version
@@ -249,7 +250,7 @@ For example, the Python version specifications generally don't allow arbitrary
 text in the version tuple
 (especially [PEP 440](https://www.python.org/dev/peps/pep-0440/) compliant version numbers).
 Fortunately, I am usually deploying Python code as Docker containers or Debian
-packages, both of which support arbitrary text in their versions that can
+packages, both of which do support arbitrary text in their versions that can
 include version numbers.
 
 FAQ
@@ -257,12 +258,12 @@ FAQ
 
 **I don't like my public API anymore, how do I break it?**
 
-Change the name of the package. Every packaging system I am aware of namespaces
-packages by name and allows you to install both at the same time.  This means
-that users of your package can safely migrate by first including the new
-version, then porting all old code to the new version, and finally removing the
-old version. The only cost to the user is the extra disk space to host multiple
-versions.
+That is great, please change the name of the package or module. Every packaging
+system I am aware of namespaces packages by name and allows you to install both
+at the same time.  This means that users of your package can safely migrate by
+first including the new version, then porting all old code to the new version,
+and finally removing the old version. The only cost to the user is the extra
+disk space to host multiple versions.
 
 **How do I do unstable releases?**
 
