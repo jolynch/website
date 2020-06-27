@@ -15,13 +15,15 @@ for totally ordering changes to the software API:
 
 <center><h3>Semantic Version Numbers</h3></center>
 {{< highlight text >}}
+====================== Specification ========================
+
 Version = <Major>.<Minor>.<Patch>
 
 Major: this number goes up when the public API breaks
 Minor: this number goes up when the public API changes
 Patch: this number goes up when the public API doesn't change
 
-# === Examples ===
+====================== Examples =============================
 
 # A Minor API change happened, safe to upgrade
 1.4.5 -> 1.5.0
@@ -31,6 +33,7 @@ Patch: this number goes up when the public API doesn't change
 
 # Who knows what will happen
 0.182.13 -> 0.182.14
+=============================================================
 {{< /highlight >}}
 
 
@@ -48,36 +51,37 @@ frequently are:
    simultaneously host multiple major versions of a given package. This often
    leaves users unable to upgrade to the latest major version due to
    (reasonable) fear of breakages.
-2. Frequent major (and even minor version bumps) do break code, leading to
-   [dependency hell](https://en.wikipedia.org/wiki/Dependency_hell) where
-   library/service authors mix and match min, max, and exact version pins to
-   try to work around various incompatibilities.
+2. Frequent major version bumps break frequently break functional code, leading
+   to [dependency hell](https://en.wikipedia.org/wiki/Dependency_hell) where
+   library/service authors mix and match min, max, and exact version pins on
+   major versions to try to work around various incompatibilities. These pins
+   inevitably conflict.
 3. There is still no standard way to derive the source code which produced the
-   artifact or seeing the diff between two versions. This makes it hard to
-   verify how the API is breaking or whether it will break specific
-   usage patterns.
+   artifact or seeing the difference between two versions. This makes it hard
+   to verify how the API is breaking or whether it will break specific usage
+   patterns.
 
 There is also the somewhat annoying issue of the plethora of `0.X` artifacts,
 which happen because developers, somewhat reasonably, don't want to release
 a public API they will have to stand behind until they can be certain they
 can.
 
-Ultimately all of these factors lead to Fear, Uncertainty and Doubt
-([FUD](https://en.wikipedia.org/wiki/Fear,_uncertainty,_and_doubt)) and
-quite reasonably developers defend themselves by either not upgrading
-their dependencies unless they have to, vendoring dependent code, or skipping
-dependencies all together and just writing it themselves.
+Ultimately these factors lead to software developers, myself included, viewing
+dependency upgrades with great trepidation. Quite reasonably developers defend
+themselves from breakage by either not upgrading their dependencies (unless
+they are forced to), vendoring dependent code, or skipping dependencies all
+together and just writing it themselves.
 
-Reduce the FUD: Breaking Versions Can Cohabitate
-------------------------------------------------
+Reduce the Fear: Breaking Versions Must Cohabitate
+--------------------------------------------------
 
-The existence of the major version number in SemVer is by far the most
-problematic aspect of the design. In an ideal world, packaging systems and
-programming languages would automatically namespace different major versions,
-and code that depends on a particular major version would have all references
-specifically reference the major version namespace. Unfortunately, we do not
-live in an ideal world and most packaging systems simply don't support this.
-Three examples that I personally struggle with constantly are:
+The use of the major version number in SemVer to indicate API breakage is by
+far the most problematic aspect of the design. In an ideal world, packaging
+systems and programming languages would automatically namespace different major
+versions, and code that depends on a particular major version would have all
+references specifically reference the major version namespace. Unfortunately,
+we do not live in an ideal world and most packaging systems simply don't
+support this.  Three examples that I personally struggle with frequently:
 
 **Debian packages (`apt`/`aptitude` in particular)**: You only get one version
 and the higher one is almost always chosen even if that may break less than
@@ -112,13 +116,13 @@ from the old version to the new one.
 In an ideal world, remote APIs would remain backwards compatible for at least a
 single major version to give users an upgrade path, but I find that many
 developers argue that they don't need to remain backwards compatible across a
-major version (this is what SemVer says after all ...).
+major version (this is what SemVer says after all ...). I wish this argument
+was soundly rejected.
 
-How do we fix this problem given the current constraints we operate under?
-Well, we are left with a reasonably simple option: **put the major version in
-the name of the package.** For example, when you want to release `foo=2.0.0`
-release `foo2` instead. Some example API migrations I have been able to take
-advantage of this technique are:
+How can we fix this problem given the current constraints we operate under?
+Well, we are left with a reasonably simple option: **put the api version
+semantics in the name of the package.** Some example API migrations I have been
+able to take advantage of this technique are:
 
 * `boto` to `boto3` (Python,
   [docs](https://boto3.amazonaws.com/v1/documentation/api/latest/index.html)):
@@ -128,10 +132,14 @@ advantage of this technique are:
 * Every Linux kernel package ever (the Linux kernel has this figured out!). The
   Kernel not only prohibits breaking user-space, but they give their users a
   great way to install multiple kernels at the same time.
+* Cassandra's Thrift API
+  ([Netflix Astyanax](https://github.com/Netflix/Astyanax))
+  to Cassandra's CQL API
+  ([Datastax Java Driver](https://github.com/datastax/java-driver))
 
 
-Reduce the FUD: Binary Versions Can be Traced to Source
--------------------------------------------------------
+Reduce the Fear: Binary Versions Can be Traced to Source
+--------------------------------------------------------
 
 In my experience, software engineers spend a non trivial amount of time trying
 to figure out "what actually changed between these two released versions". One
@@ -154,55 +162,95 @@ system.
 while I can typically assume projects use source control since it is strictly
 easier than not using source control, I don't think it is reasonable to expect
 developers, often working for free, to take the time to summarize their
-software changes into English changelogs.
+software changes into English changelogs. Writing clear and actionable English
+is difficult, potentially more difficult than the code itself. Certainly, I
+appreciate every project maintainer who takes the time to summarize changes in
+a release, but I don't think it's fair to _expect_ it in the same way most
+consumers of software expect producers to use source control.
 
+Proposal: Semantic Package Names
+================================
 
-Proposal: Ditch "Major" Version Numbers
-=======================================
+Both of these problems can be remedied with a straightforward evolution to
+`SemVer` in which we make some small changes to include a great deal more
+semantic information in the package name and version number. I call it
+semantic package names and it consists of two changes:
 
-Both of these problems can be remedied with a simple evolution to `SemVer` in
-which we only use the major version to signal stability rather than A. Package names are sufficient to
-indicate an API has changed.  For example, `elasicsearch5` is the python
-library that functions with the Elasticsearch server version 5. Applications
-such as Elasticsearch or Cassandra release named packages that unambiguously
-communicate the major version API that is supported by that package. One
-possible example for Cassandra might be `cassandra-21x`, `cassandra-30x`,
-`cassandra-311x`, and `cassandra-40x` for the `2.1`, `3.0`, `3.11`, `4.0`
-branches respectively. With the removal of major version, we shift all other
-numbers up by one and use the newly available third slot as a code identifier.
+1. Use package (=module) names to indicate an API has broken
+2. Attempt to include a source identifier in the version.
 
-<center><h3> Better Semantic Version Numbers </h3></center>
+For example, `elasicsearch5` is the python library that functions with the
+Elasticsearch server version 5.  Applications such as Elasticsearch or
+Cassandra release named packages that unambiguously communicate the major
+version API that is supported by that package. One possible example for Apache
+Cassandra might be `cassandra-21x`, `cassandra-30x`, `cassandra-311x`, and
+`cassandra-40x` for the `2.1`, `3.0`, `3.11`, `4.0` branches respectively.
+
+I know this is not new, many software projects already follow this kind of scheme
+such as the Linux kernel (a.k.a "Never break userspace") or the Go
+[programming language](https://golang.org/cmd/go/#hdr-Module_compatibility_and_semantic_versioning).
+I just believe that if every software project and language I interacted with
+followed this pattern the whole industry would become more efficient. I have
+also found myself using this technique internally to every company I've worked
+at to manage software change.
+
+In addition to using semantic package names, I prefer when packages include a
+fourth piece of metadata in their version number indicating the source version
+that produced the artifact. Depending on the packaging system this is usually
+either another dotted version (making it a four-tuple) or a `-` suffix.
+
+<center><h3> Better Semantic Versioning </h3></center>
 
 {{< highlight text >}}
-Version = <Minor>.<Patch>.<Identifier>
 
-Minor: this number goes up when the public API changes
+====================== Specification ========================
+<Package Version> = <Package Name>:<Version Number>
+<Version Number>  = <Major>.<Minor>.<Patch><Identifier>
+
+Package Name: This name changes when the public API breaks
+Major: this number goes up with "major" public API additions
+Minor: this number goes up with "minor" public API additions
 Patch: this number goes up on every release, wrapping to
-zero on a Minor release.
-Identifier: this string relates directly to a specific
-source that produced this artifact.
+       zero on a Minor release.
+Identifier: For packaging systems that support it, this
+            string relates directly to a specific source
+            code that produced the artifact.
 
 An example of an identifier in git would be the first 8
 characters of the commit SHA or if the project uses tags
 this could be a tag
 
-# === Examples ===
+====================== Examples =============================
 
 # Minor API change, SHAs indicate code versions
-12.34.9bd9aeee -> 13.0.625cd1dc
+foo1:1.12.34.9bd9aeee -> foo1:1.13.0.625cd1dc
 
-# Patch bump, versions are tagged
-13.12.tags -> 13.13.tags
+# Patch bump, lack of SHA indicates versions are tagged
+foo1:1.13.12 -> foo1:1.13.13
 
-# API breakage
-# Not allowed - rename your package
+# API breakage for an alpha
+foo1:1.13.0 -> foo2:0.1.0
+
+# Transition from unstable to stable API
+foo3:0.123.1 -> foo3:1.0.0
+
+=============================================================
 {{< /highlight >}}
 
 This solution is, as far as I am aware, backwards compatible with all existing
 packaging and versioning schemes and solves all major issues identified with
 the status quo. I have personally used such techniques in my jobs to do
-dozens of previously impossible upgrades, and I think we as a field could fear
-upgrades significantly less if all software was released this way.
+dozens of previously impossible upgrades, and I believe all software developers
+could fear upgrades significantly less if all software was released this way.
+
+I wish that all packaging systems supported source identifiers in the version
+number, which could permanently solve the traceability problem, but they don't.
+For example, the Python version specifications generally don't allow arbitrary
+text in the version tuple
+(especially [PEP 440](https://www.python.org/dev/peps/pep-0440/) compliant version numbers).
+Fortunately, I am usually deploying Python code as Docker containers or Debian
+packages, both of which support arbitrary text in their versions that can
+include version numbers.
 
 FAQ
 ---
@@ -216,11 +264,14 @@ version, then porting all old code to the new version, and finally removing the
 old version. The only cost to the user is the extra disk space to host multiple
 versions.
 
-**How do I do unstable releases like I used to do with major version zero?**
+**How do I do unstable releases?**
 
-Name your package something which indicates its alpha/beta/unstable status. For
-example `library-beta` or `library-unstable`. These words are much more
-descriptive than "it's a zero dot release".
+The zero dot is still there, but now it is there to explicitly indicate stability.
+Now that names are semantic you could *also* name your package something which
+indicates its alpha/beta/unstable status. For example `library-beta` or
+`library-unstable`. These words are much more descriptive than "it's a zero dot
+release", and during the alpha/beta/unstable phases of a project you hopefully
+have a somewhat early-adopting audience who is willing to change import names.
 
 **How do I see the changes between two versions?**
 
@@ -228,7 +279,7 @@ You can use the third part of the tuple to relate the artifact to code.
 
 {{< highlight text >}}
 # SHA based identifiers
-# 12.34.9bd9aeee -> 13.0.625cd1dc
+# 1.12.34.9bd9aeee -> 1.13.0.625cd1dc
 
 # Command line
 git diff 9bd9aeee 625cd1dc
@@ -236,12 +287,12 @@ git diff 9bd9aeee 625cd1dc
 # Github
 https://github.com/org/project/compare/9bd9aeee..625cd1dc
 
-# Rather than a commit id the phrase "tags" implies the existance
-# of version tags:
-# 12.34.tags -> 13.0.tags
+# When shas are not absent in the released versions, version tags
+# should exist
+# 2.12.34 -> 2.13.0
 
 # Command line
-git diff v12.34 v13.0
+git diff v2.12.34 v2.13.0
 {{< /highlight >}}
 
 
