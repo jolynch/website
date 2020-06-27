@@ -64,7 +64,7 @@ can.
 
 Ultimately all of these factors lead to Fear, Uncertainty and Doubt
 ([FUD](https://en.wikipedia.org/wiki/Fear,_uncertainty,_and_doubt)) and
-quite reasonably developers defend themselves either by either not upgrading
+quite reasonably developers defend themselves by either not upgrading
 their dependencies unless they have to, vendoring dependent code, or skipping
 dependencies all together and just writing it themselves.
 
@@ -125,7 +125,9 @@ advantage of this technique are:
   An extremely prevalent library for accessing AWS services
 * `elasticsearch` to `elasticsearch2` (Python, [motivation](https://github.com/elastic/elasticsearch-py/issues/515)): A Python client library for the
    Elasticsearch search engine.
-* Every Linux kernel package ever (the Linux kernel has this figured out!).
+* Every Linux kernel package ever (the Linux kernel has this figured out!). The
+  Kernel not only prohibits breaking user-space, but they give their users a
+  great way to install multiple kernels at the same time.
 
 
 Reduce the FUD: Binary Versions Can be Traced to Source
@@ -159,7 +161,7 @@ Proposal: Ditch "Major" Version Numbers
 =======================================
 
 Both of these problems can be remedied with a simple evolution to `SemVer` in
-which we eliminate the major version entirely. Package names are sufficient to
+which we only use the major version to signal stability rather than A. Package names are sufficient to
 indicate an API has changed.  For example, `elasicsearch5` is the python
 library that functions with the Elasticsearch server version 5. Applications
 such as Elasticsearch or Cassandra release named packages that unambiguously
@@ -189,13 +191,18 @@ this could be a tag
 # Minor API change, SHAs indicate code versions
 12.34.9bd9aeee -> 13.0.625cd1dc
 
-# Patch bump, SHAs indicate code versions
-13.12.05882b62 -> 13.13.512c1c90
+# Patch bump, versions are tagged
+13.12.tags -> 13.13.tags
 
 # API breakage
 # Not allowed - rename your package
 {{< /highlight >}}
 
+This solution is, as far as I am aware, backwards compatible with all existing
+packaging and versioning schemes and solves all major issues identified with
+the status quo. I have personally used such techniques in my jobs to do
+dozens of previously impossible upgrades, and I think we as a field could fear
+upgrades significantly less if all software was released this way.
 
 FAQ
 ---
@@ -229,8 +236,10 @@ git diff 9bd9aeee 625cd1dc
 # Github
 https://github.com/org/project/compare/9bd9aeee..625cd1dc
 
-# No commit id implies the existance of version tags
-# 12.34 -> 13.0
+# Rather than a commit id the phrase "tags" implies the existance
+# of version tags:
+# 12.34.tags -> 13.0.tags
+
 # Command line
 git diff v12.34 v13.0
 {{< /highlight >}}
