@@ -1,5 +1,5 @@
 ---
-title: "SemVer Needs to Evolve"
+title: "SemVer Considered Harmful"
 date: 2020-06-21T12:57:26-07:00
 tags: ["software-opinions"]
 ---
@@ -48,8 +48,8 @@ a large amount of pain in our industry. Three concrete failure modes I witness
 frequently are:
 
 1. Most packaging systems (deb, rpm, python, ruby, java, etc ...) cannot
-   simultaneously host multiple major versions of a given package. This often
-   leaves users unable to upgrade to the latest major version due to
+   simultaneously install multiple major versions of the same package name.
+   This often leaves users unable to upgrade to the latest major version due to
    (reasonable) fear of breakages.
 2. Frequent major version bumps frequently break functional code, leading
    to [dependency hell](https://en.wikipedia.org/wiki/Dependency_hell) where
@@ -95,9 +95,9 @@ getting the JVM to not pick one implementation arbitrarily. As a result, Java
 developers often resort to hacks like
 [package path rewriting](https://imperceptiblethoughts.com/shadow/).
 
-**Python libraries (`pip`)**: While the Python community has moved towards
-isolated virtual environments which does make this issue slightly less of an
-issue (and with tools like `docker` or
+**Python libraries (`pip` in particular)**: While the Python community has
+moved towards isolated virtual environments which does make this issue slightly
+less of an issue (and with tools like `docker` or
 [`dhvirtualenv`](https://github.com/spotify/dh-virtualenv) it gets even
 better), you still can't install multiple versions of the same package in the
 same virtualenv. Most Python projects I am aware of either don't work around
@@ -265,6 +265,15 @@ first including the new version, then porting all old code to the new version,
 and finally removing the old version. The only cost to the user is the extra
 disk space to host multiple versions.
 
+**How do I ensure other people don't take my package name and like add a suffix?**
+
+Yes, this is an issue. It is an issue right now in the status quo as well
+without semantic names.  I don't have a backwards-compatible solution, but it
+is probably reasonably straightforward for packaging systems (or package hosts)
+to add support for claiming a namespace and associating it with a particular
+publisher (similar to how you can do that for a single package name).
+
+
 **How do I do unstable releases?**
 
 The zero dot is still there, but now it is there to explicitly indicate stability.
@@ -297,7 +306,7 @@ git diff v2.12.34 v2.13.0
 {{< /highlight >}}
 
 
-**As a softwre author, isn't maintaining multiple branches annoying?**
+**As a software author, isn't maintaining multiple branches annoying?**
 
 Most projects I am aware of already use multiple branches to support
 multiple major versions. Otherwise applying patches that must apply to multiple
@@ -307,7 +316,7 @@ I haven't really seen a good way of doing multiple majors with a single branch
 absent sophisticated build infrastructure most people don't have.
 
 
-**The merge conflicts between majors is knarly**
+**The merge conflicts between majors is gnarly**
 
 Yes this is annoying, although I should point out again not unique to this
 proposal. The easiest solution is not to break your API in the first place, but
