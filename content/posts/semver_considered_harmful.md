@@ -1,6 +1,6 @@
 ---
 title: "SemVer Considered Harmful"
-date: 2020-06-21T12:57:26-07:00
+date: 2020-07-04T20:50:00-07:00
 tags: ["software-opinions"]
 ---
 
@@ -211,8 +211,7 @@ either another dotted version (making it a four-tuple) or a `-` suffix.
 Package Name: This name changes when the public API breaks
 Major: this number goes up with "major" public API additions
 Minor: this number goes up with "minor" public API additions
-Patch: this number goes up on every release, wrapping to
-       zero on a Minor release.
+Patch: this number goes up on every release
 Identifier: For packaging systems that support it, this
             string relates directly to a specific source
             code that produced the artifact.
@@ -224,7 +223,7 @@ this could be a tag
 ====================== Examples =============================
 
 # Minor API change, SHAs indicate code versions
-foo1:1.12.34.9bd9aeee -> foo1:1.13.0.625cd1dc
+foo1:1.12.34-9bd9aeee -> foo1:1.13.0-625cd1dc
 
 # Patch bump, lack of SHA indicates versions are tagged
 foo1:1.13.12 -> foo1:1.13.13
