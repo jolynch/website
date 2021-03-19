@@ -90,7 +90,10 @@ context switch. This saves time because the workers never have to context
 switch, they just process order after order and dispatch that work to highly
 efficient sandwich making workers. It looks a little like:
 
-<center>![jj_single_queue](/img/jimmy_johns_single_queue.svg)</center>
+<center>
+
+![jj_single_queue](/img/jimmy_johns_single_queue.svg)
+</center>
 
 Jimmy John's does three more things crucially right here:
 
@@ -132,7 +135,10 @@ slow down short orders. This, in turn, keeps mean processing time and mean
 slowdown way down. We can now add the parallel sandwich pipelines to the Jimmy
 John's model:
 
-<center>![jj_system](/img/jimmy_johns_whole_system.svg)</center>
+<center>
+
+![jj_system](/img/jimmy_johns_whole_system.svg)
+</center>
 
 I'm not sure if the pipelines are specialized, as in I'm not sure if certain
 orders like roast beef go to one lane and other orders like Italian sandwiches

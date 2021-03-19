@@ -113,7 +113,7 @@ per queue. The second queueing technique can be approximated as a single
 
 | Our Queueing Options |
 |--------------------------------|
-|<center>![fdm_vs_mmk_queue](/img/fdm_vs_mmk_queue.svg)</center>|
+|![fdm_vs_mmk_queue](/img/fdm_vs_mmk_queue.svg)|
 
 
 From [M. Harchol-Balter](#harchol_balter) (Section 14.4, page 263) we can work out the expected latency of these two systems:
@@ -174,13 +174,19 @@ Single Queue     |    0.43 |    0.17 |    0.31 |    1.25 |    1.89 |    2.86 |
 We can also clearly see that a single queue is better by plotting the response
 latencies with a standard boxplot where the whiskers are placed at the `1st`
 and `99th` percentile latency:
-<center>![single_vs_multiple](/img/single_vs_multiple.png)</center>
+<center>
+
+![single_vs_multiple](/img/single_vs_multiple.png)
+</center>
 
 Alternatively we can look at the latency distribution of these two queueing
 options over a wide range of load and as we saw above the `M/M/c` continues
 to provide significantly better latency bounds:
 
-<center>![single_vs_multiple_load](/img/single_vs_multiple_load.png)</center>
+<center>
+
+![single_vs_multiple_load](/img/single_vs_multiple_load.png)
+</center>
 
 **Summary**: Keeping work in a single queue is probably the right default
 choice if your goal is to minimize mean latency (maximize throughput).
@@ -200,7 +206,7 @@ something like:
 
 | Load Balancing |
 |----------------|
-|<center>![fdm_vs_lb_queue](/img/fdm_vs_lb_queue.svg)</center>|
+|![fdm_vs_lb_queue](/img/fdm_vs_lb_queue.svg)|
 
 
 We can explore three likely load balancing algorithms that customers in a
@@ -222,7 +228,10 @@ If we simulate these three options we can see that, again, the single queue
 dominates the field, although `Join Shortest Queue` is only very slightly worse
 (about 10% worse across the latency distribution).
 
-<center>![single_vs_multiple_lb](/img/single_vs_multiple_lb.png)</center>
+<center>
+
+![single_vs_multiple_lb](/img/single_vs_multiple_lb.png)
+</center>
 
 The surprise winner here in my opinion is the choice of two option, which
 underperforms `JSQ` but not by much, and unlike this simulation scanning all of
@@ -265,7 +274,10 @@ simulation](https://github.com/jolynch/python_performance_toolkit/blob/master/no
 cancel the other request that is pending, we can see that tail latency is
 reduced dramatically:
 
-<center>![speculation](/img/speculation.png)</center>
+<center>
+
+![speculation](/img/speculation.png)
+</center>
 
 This is just like in a supermarket where a couple will split up and have one
 person wait at one register and the second person waits at a different

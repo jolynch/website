@@ -38,7 +38,10 @@ thirty minutes.
 You can understand this intuitively by first looking at how a more traditional
 "Big Pizza Shop" model might work where a large store services many customers:
 
-<center>![dominos_big_pizza](/img/dominos_big_pizza.svg)</center>
+<center>
+
+![dominos_big_pizza](/img/dominos_big_pizza.svg)
+</center>
 
 In this visualization a single grid tick represents one minute of time, so
 our first customer `Alice` spends about 2 minutes ordering her pizza, then the
@@ -52,7 +55,10 @@ smaller points of presence which are closer to their customers. This model
 allows the pizzas to arrive back at the customers in a mere 8-10 minutes,
 bringing the delivery ETA to under the 30 minute SLO!
 
-<center>![dominos_small_pizza](/img/dominos_small_pizza.svg)</center>
+<center>
+
+![dominos_small_pizza](/img/dominos_small_pizza.svg)
+</center>
 
 As it turns out, this is similar to how large websites like Google, Facebook,
 and Netflix guarantee low latency delivery of webpages, images, and very
@@ -89,7 +95,10 @@ comes in can drastically reduce the latency.
 This leads us to the "Domino's Model" where we have extremely fast ordering,
 fast pizza making, and happy customers!
 
-<center>![dominos_full](/img/dominos_pizza_full.svg)</center>
+<center>
+
+![dominos_full](/img/dominos_pizza_full.svg)
+</center>
 
 Is it lovingly hand tossed and finished with freshly cut vegetables and meats?
 No, but it is extremely efficient and honestly, I enjoy the end result!
@@ -105,7 +114,10 @@ various sizes and shapes of a given image asset to their CDN so that, again,
 all the CDN has to do is return the right asset. A typical web architecture
 that uses CDNs looks somewhat familiar:
 
-<center>![dominos_cdn](/img/dominos_cdn.svg)</center>
+<center>
+
+![dominos_cdn](/img/dominos_cdn.svg)
+</center>
 
 The only request that must be served from the far away website servers is the
 initial "control plane"/"business logic" request, and then all of the content

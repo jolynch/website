@@ -27,7 +27,10 @@ make sure we can process the backlog". She hits the scale up button and replies
 
 Unfortunately, both of these developers has set distributed systems traps.
 
-<center>![its_a_trap](/img/its_a_trap.jpg)</center>
+<center>
+
+![its_a_trap](/img/its_a_trap.jpg)
+</center>
 <center>Retries and Deep Queues in Distributed Systems</center>
 
 Bob has set a trap by adding a retry after a short timeout. Under normal

@@ -35,7 +35,10 @@ and optimization works in this continuous fashion whether you are optimizing
 distributed systems, pizza delivery, or issuing form MC-706-M.
 
 <center><h3>Performance Analysis</h3></center>
-<center>![performance analysis](/img/performance_analysis.svg)</center>
+<center>
+
+![performance analysis](/img/performance_analysis.svg)
+</center>
 
 In most distributed systems we might care about the system throughput we can do
 at different levels of concurrent load, or the distribution of service times.
@@ -55,7 +58,10 @@ This data is straightforward to collect and allows us to calculate both the
 system's mean slowdown (how much do fast tasks queue behind slow ones) and
 mean latency (how fast do tasks complete):
 
-<center>![dmv_metrics](/img/dmv_metrics.svg)</center>
+<center>
+
+![dmv_metrics](/img/dmv_metrics.svg)
+</center>
 
 This time series data along with what kind of task the customer sought
 (license renewal, new license, etc ...) allows the DMV to measure changes to
@@ -108,7 +114,10 @@ load out over the whole day. Note that selecting how many appointments to have
 is somewhat of a tricky problem, but tuning that can be done using the
 throughput and slowdown statistics gathered in real time.
 
-<center>![dmv time of day load](/img/dmv_load_over_time.svg)</center>
+<center>
+
+![dmv time of day load](/img/dmv_load_over_time.svg)
+</center>
 
 This graph is made up (with data from part 1 we could make a real one!), but it
 demonstrates how appointments allow the DMV to more evenly spread load across
@@ -129,7 +138,10 @@ distribution of wait times and use this to help those considering walk-ins to
 select the office with the shortest queueing time for their particular task.
 This helps users balance load to the least busy DMV office.
 
-<center>![dmv time of day load](/img/dmv_time_distribution.svg)</center>
+<center>
+
+![dmv time of day load](/img/dmv_time_distribution.svg)
+</center>
 
 In this case a customer may choose to attend the green (long-dashed) DMV
 because it will be faster for them. This is similar to the "Join Shortest
@@ -172,7 +184,10 @@ must be constantly adjusting to what the data is telling us, otherwise the
 [system's throughput can actually suffer significantly]({{< relref supermarkets_and_efficient_queueing_part_2 >}}#lesson-4-separate-out-different-kinds-of-work) when a
 worker could be busy but is instead idle.
 
-<center>![dmv_task_queueing](/img/dmv_task_queueing.svg)</center>
+<center>
+
+![dmv_task_queueing](/img/dmv_task_queueing.svg)
+</center>
 
 TAGs comes in when a task exceeds the duration we thought it would take. When
 this happens, we can turn that worker into a "slow task" worker and re-queue

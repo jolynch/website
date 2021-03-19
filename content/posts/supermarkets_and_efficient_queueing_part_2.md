@@ -26,7 +26,10 @@ See [M. Harchol-Balter](#harchol_balter) (Section 28.3, page 474) for a
 precise handling but generally mean slowdown is a measure of how much a small
 task queues behind larger ones:
 
-<center>![slowdown_eq](/img/slowdown_eq.svg)</center>
+<center>
+
+![slowdown_eq](/img/slowdown_eq.svg)
+</center>
 
 Ideally, if you are a task that only takes a few seconds, you shouldn't wait
 behind tasks that take hours. Put differently, today we're going to be talking
@@ -49,7 +52,10 @@ be servicing the slower masses.
 We can actually observe this in action by simulating such a bi-modal workload,
 something like a sum of two truncated Pareto distributions:
 
-<center>![slowdown_request_distribution](/img/slowdown_request_distribution.png)</center>
+<center>
+
+![slowdown_request_distribution](/img/slowdown_request_distribution.png)
+</center>
 
 
 As these are [M/G/k](https://en.wikipedia.org/wiki/M/G/k_queue) queues, and are
@@ -61,7 +67,10 @@ route requests knowing how long they take to either a "fast lane" or a "slow
 lane". By doing this we **increase mean latency** but we **decrease mean
 slowdown**:
 
-<center>![fast_lane](/img/fast_lane.svg)</center>
+<center>
+
+![fast_lane](/img/fast_lane.svg)
+</center>
 
 ```code
 Latency results
@@ -80,7 +89,10 @@ Single Queue Slowdown |   1.19 |   1.94 |   1.00 |   1.11 |   8.06 |  18.98 |
 We can see that the dedicated fast lanes are superior in terms of slowdown
 by plotting the slowdowns in a variable width histogram:
 
-<center>![slowdown_histogram](/img/slowdown_histogram.png)</center>
+<center>
+
+![slowdown_histogram](/img/slowdown_histogram.png)
+</center>
 
 I love that supermarkets mostly get this right,
 but I do wish that they would do more of this based on metrics other than
