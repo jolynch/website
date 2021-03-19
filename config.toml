@@ -24,3 +24,6 @@ theme = "xmin"
     description = "A personal website for Joey Lynch."
     footer = "&copy; [Joey Lynch](https://jolynch.github.io) 2019 | [Github](https://github.com/jolynch)"
     mainSections = ["posts"]
+
+[markup.goldmark.renderer]
+unsafe= true
