@@ -8,6 +8,10 @@ meta: false
 I've mostly written blog posts and whitepapers, mostly for employers. I've
 included links here in case they might be interesting.
 
+* [Towards Practical Self-Healing Distributed Databases](/pdf/practical-self-healing-databases.pdf) (2020):
+  A paper published in proceedings of the [2020 IEEE Infrastructure Conference](https://ieeexplore.ieee.org/document/9377621/references#references) about how one can build self-healing
+  databases out of existing software and hardware without replacing the entire
+  database engine.
 * [Garbage Collecting Unhealthy JVMs, a proactive approach](https://medium.com/@NetflixTechBlog/introducing-jvmquake-ec944c60ba70) (2019):
   A post I authored with Josh Snyder for Netflix that introduced and explained
   how we use the [`jvmquake`](https://github.com/jolynch/jvmquake) agent to
