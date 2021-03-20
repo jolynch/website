@@ -11,9 +11,11 @@ constantly surprised by how many systems only support slow, inefficient, and
 expensive ways of doing these operations.
 
 In my experience, these poor algorithm choices are *orders of magnitude* slower
-than modern alternatives. In the interest of using more of our CPU time to do
-useful work instead of melting ice-caps and giving programmers excessively long
-coffee breaks, we will explore some faster alternatives in this post.
+than modern alternatives. Indeed, using a fast algorithm can often be the
+difference between actually doing compression/hashing/encryption and "Eh, I'll
+skip it".  In the interest of using more of our CPU time to do useful work
+instead of melting ice-caps and giving programmers excessively long coffee
+breaks, we will explore some faster alternatives in this post.
 
 **TLDR**
 
@@ -143,7 +145,8 @@ where you don't want a fast hash. For example, one situation where you want an
 intentionally slow algorithm is when dealing with passwords. In such cases you
 want a very slow hash like
 [`argon2`](https://en.wikipedia.org/wiki/Argon2),
-[`bcrypt`](https://en.wikipedia.org/wiki/Bcrypt)"), `PBKFD2` or even just a high number of
+[`bcrypt`](https://en.wikipedia.org/wiki/Bcrypt)",
+[`PBKFD2`](https://en.wikipedia.org/wiki/PBKDF2) or even just a high number of
 rounds of `SHA-512`.
 
 ### Show me the Data
@@ -177,7 +180,8 @@ because of the specification!".  That is unfortunate, but at least make sure
 you're using fast implementations, for example
 [ACCP](https://github.com/corretto/amazon-corretto-crypto-provider) will speed
 up `MD5` on most Java VMs by a factor of ~4 as well as `AES-GCM` by ~10x while
-it is at it.
+it is at it. ACCP achieves this by ... linking in fast native implementations
+of crypto.
 
 ## Compression
 > I like my data transfers fast and don't like paying for lots of disk or
