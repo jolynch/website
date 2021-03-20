@@ -4,13 +4,13 @@ date: 2021-03-14T20:48:05-04:00
 tags: ["software-opinions"]
 ---
 
-As an engineer working with data I spend a lot of time moving data around,
-hashing it, compressing it, decompressing it and generally trying to shovel it
-between VMs and blob stores over TLS. I am constantly surprised by how many
-systems only support slow, inefficient, and expensive ways of doing these
-operations.
+As an engineer who primarily works with data and databases I spend a lot of
+time moving data around, hashing it, compressing it, decompressing it and
+generally trying to shovel it between VMs and blob stores over TLS. I am
+constantly surprised by how many systems only support slow, inefficient, and
+expensive ways of doing these operations.
 
-In my experience these poor algorithm choices are *orders of magnitude* slower
+In my experience, these poor algorithm choices are *orders of magnitude* slower
 than modern alternatives. In the interest of using more of our CPU time to do
 useful work instead of melting ice-caps and giving programmers excessively long
 coffee breaks, we will explore some faster alternatives in this post.
@@ -106,19 +106,20 @@ where cryptographic hashes come in, most commonly:
 
 * `md5`: It's slow and not resistant to collisions ... everything I love in a hash
   function.
-* [`sha1`](https://en.wikipedia.org/wiki/SHA-1): This hash is at least somewhat performant and
-  isn't as completely broken as `md5`. We should probably
-  still consider [it on shakey
+* [`sha1`](https://en.wikipedia.org/wiki/SHA-1): This hash is at least somewhat
+  performant and isn't as completely broken as `md5`. We should probably still
+  consider [it on shaky
   ground](https://en.wikipedia.org/wiki/SHA-1#SHAttered_%E2%80%93_first_public_collision)
   though.
 * [`sha2`](https://en.wikipedia.org/wiki/SHA-2) (specifically `sha256`): An
-  ubiquitous hash and unlike `md5` and `sha1` it is still (as far as I know)
-  still considered secure, so that is nice. Unfortunately this hash is
-  noticeably slow when used in performance critical situations.
-* [`sha3`](https://en.wikipedia.org/wiki/SHA-3): The latest and greatest
-  cryptographic hash. I was not able to find it packaged outside of `openssl`
-  and it doesn't appear to have great `cli` or language support at this time.
-  It's also still pretty slow.
+  ubiquitous hash and unlike `md5` and `sha1` it is still considered secure, so
+  that is nice. Unfortunately this hash is noticeably slow when used in
+  performance critical applications.
+* [`sha3`](https://en.wikipedia.org/wiki/SHA-3): The latest hash that NIST
+  standardized (because they had concerns about `SHA-2` that appear at this
+  time somewhat unfounded). I was not able to find it packaged outside of
+  `openssl` and it doesn't appear to have great `cli` or language support at
+  this time.  It's also still pretty slow.
 
 **Faster Choice**
 
@@ -127,8 +128,9 @@ algorithm and there are concerns about security margin but I'm just so tired of
 waiting for `sha256`. In practice, this is probably a much better choice than
 the known-to-be-completely-broken `md5` so if you're reaching for `md5` over
 `xxHash` because you need a cryptographic alternative, consider `blake3`
-instead. Also hash trees ([merkle trees](https://en.wikipedia.org/wiki/Merkle_tree))
-are wonderful when implemented correctly and I wish more systems used them.
+instead. Also `blake3` uses hash trees ([merkle
+trees](https://en.wikipedia.org/wiki/Merkle_tree)) which are wonderful when
+implemented correctly and I wish more systems used them.
 
 The one major downside of `blake3` in my opinion is that at this time (2021) I
 only know of really good `cli`, `Rust`, `Go`, `C`, and `Python` implementations
@@ -137,8 +139,11 @@ use it so far from streaming pipeline verifications or artifact verification so
 the `cli` and `python` implementations are good enough for me.
 
 A quick reminder that there are lots of security-sensitive hashing situations
-where you don't want a fast hash, you want a very slow hash like blowfish (aka
-"just use [bcrypt](https://en.wikipedia.org/wiki/Bcrypt)") or a high number of
+where you don't want a fast hash. For example, one situation where you want an
+intentionally slow algorithm is when dealing with passwords. In such cases you
+want a very slow hash like
+[`argon2`](https://en.wikipedia.org/wiki/Argon2),
+[`bcrypt`](https://en.wikipedia.org/wiki/Bcrypt)"), `PBKFD2` or even just a high number of
 rounds of `SHA-512`.
 
 ### Show me the Data
@@ -167,12 +172,12 @@ If all you need to do is verify a file transfer you could be doing that 10x fast
 
 The language versions often do make a big deal, e.g. `JNI` versions that link
 to fast native code in Java will often significantly out-perform pure Java
-versions. But Joey, you say, "I have to use XYZ algorithm from the early '00s
-because of the spec!".  That is unfortunate but at least make sure you're using
-fast implementations, for example
+versions. "But Joey", you say, "I have to use XYZ algorithm from the early '00s
+because of the specification!".  That is unfortunate, but at least make sure
+you're using fast implementations, for example
 [ACCP](https://github.com/corretto/amazon-corretto-crypto-provider) will speed
 up `MD5` on most Java VMs by a factor of ~4 as well as `AES-GCM` by ~10x while
-it's at it.
+it is at it.
 
 ## Compression
 > I like my data transfers fast and don't like paying for lots of disk or
@@ -199,22 +204,22 @@ Fast compression that gives great ratio can significantly improve most
 workloads but slow compression with bad ratio is painful and makes me sad.
 
 ## Common Poor Choices
-* `gzip` (`zlib`): A trusty workhorse but also a very slow algorithm. In
-  many cases where your network is fast, compressing with gzip can actually
-  hurt your system's performance (I have seen this uncountable times).
-* [`xz`](https://en.wikipedia.org/wiki/Distributed_hash_table) (`lzma`): An
+* [`gzip`](https://www.gnu.org/software/gzip/manual/gzip.html) (`zlib`): A
+  trusty workhorse but also a very slow algorithm. In many cases where your
+  network is fast (`1 Gbps+`), compressing with gzip can actually hurt your system's
+  performance (I have seen this numerous times).
+* [`xz`](https://en.wikipedia.org/wiki/XZ_Utils) (`lzma`): An
   algorithm that has pretty good ratios, but is so slow to compress that in
   practice the only potential use cases are single-write
   many-read use cases.
 * [`snappy`](https://en.wikipedia.org/wiki/Snappy_(compression)): One of the
-  first "I'll tradeoff ratio for speed" algorithms, snappy was good for its
+  first "I'll trade off ratio for speed" algorithms, snappy was good for its
   time. These days it is almost always outperformed by other choices.
-
 
 
 ### Best Choice - I care about ratio
 
-Use [`zstd`](https://facebook.github.io/zstd/). To tradeoff more compression
+Use [`zstd`](https://facebook.github.io/zstd/). To trade off more compression
 time CPU for better ratio increase the compression level or increase the block
 size. I find that in most database workloads the default level (`3`) or even
 level `1` is a good choice for write heavy datasets (getting close to `lz4`)
@@ -222,7 +227,7 @@ and level `10` is good for read heavy datasets (surpassing `gzip` in every
 dimension). Note that `zstd` strictly dominates `gzip` as it is faster and gets
 better ratio.
 
-Even better `zstd` supports [training dictionaries](https://facebook.github.io/zstd/#small-data)
+Even better: `zstd` supports [training dictionaries](https://facebook.github.io/zstd/#small-data)
 which can really come in handy if you have lots of individually small but
 collectively large `JSON` data (looking at you tracing systems).
 
@@ -281,11 +286,11 @@ the job, I just change the level/block sizes and I can get the trade-off I
 want.
 
 ## Pipeline
-Now that we have fast algorithms, it matters how we wire them togehter. One of
+Now that we have fast algorithms, it matters how we wire them together. One of
 the number one performance mistakes I see is doing a single step of a data
 movement at a time, for example decrypting a file to disk and then
 decompressing it and then checksumming it. As the intermediate products must hit disk and
-are done sequentially this neccesarily slows down your data transfer.
+are done sequentially this necessarily slows down your data transfer.
 
 When data transfer is slow there are usually either slow disks or slow Java
 heap allocations in the way. I've found that if I can structure my pipelines as
@@ -306,7 +311,7 @@ $ find $DIR -maxdepth 1 -type f | xargs -IX -P 8 xxh64sum X | sort -k 2 > aws s3
 $ find $DIR -maxdepth 1 -type f | xargs -IX -P 8 | bash -c 'zstd --adapt X --stdout | aws s3 cp - s3://bucket/prefix/data/X.zst'
 
 # Or the full pipeline option (full object hash and compress at the same time)
-$ find . -maxdepth 1 -type f \
+$ find $DIR -maxdepth 1 -type f \
 | xargs -IX -P 8 \
 bash -c 'export URL=s3://bucket/prefix; cat X | tee >(xxh64sum - | aws s3 cp - ${URL}/X.zst.xxh) | zstd --adapt - --stdout | aws s3 cp - ${URL}/X.zstd'
 ```
@@ -318,25 +323,23 @@ development activities take longer in modern cloud infrastructure (fast
 networks). For example:
 
 * Backing up data. Backing up 1 TiB of data to a fast blob store (can sink
-  multiple GiBps) using `gzip` and `sha256` would take around `15` hours. Doing
+  multiple `GiBps`) using `gzip` and `sha256` would take around `15` hours. Doing
   it with `zstd` and `xxhash` takes `2.2` hours. Timely backups are one of the
   most important properties of a data system.
 * Software packages. By default debian packages are either not compressed or
   compressed with `xz`. Installing 500 MiB of uncompressed debian packages over
-  a 1 GiBps network takes `~5s`, with `xz` compression it actually
+  a one gig network takes `~5s`, with `xz` compression it actually
   slows down and takes `~1s + ~6s = ~7s`, and with `zstd -19` compression it
   takes `~1s + ~1s = ~2s`. If the `sha256` is checked that would add another
   `~20s` for a total of `~30s` versus if we check with `blake3` that adds
   `~0.1s` for a total of `~3s`.  I'd take the `3s` over `30s` any day. This
   matters every time you build container images, bake cloud VM images or
-  bootstrap servers with configuration.
-  management (puppet/chef).
+  bootstrap servers with configuration management (puppet/chef).
 * Container Images. By default `docker` uses `gzip` compression with `sha256`
   checksums, which means to decompress and checksum 4GiB of containers I'd need
   about `60s` of CPU time instead of ~`6s` with `zstd` and `xxhash` (or `6.5`s
   with `blake3`). This matters when your docker pull is in the startup path of
   your application.
-
 
 ### A note about implementation availability
 
@@ -350,4 +353,3 @@ following implementations:
 * [`Pinch`](https://github.com/jolynch/pinch) is a [docker image](https://hub.docker.com/r/jolynch/pinch)
   I built so I can bring my swiss-army-knife of hashing/compression techniques
   to any server that can run docker.
-
