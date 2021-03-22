@@ -221,12 +221,12 @@ workloads but slow compression with bad ratio is painful and makes me sad.
   time. These days it is almost always outperformed by other choices.
 
 
-### Best Choice - I care about ratio
+### Better Choice - I care about ratio
 
-Use [`zstd`](https://facebook.github.io/zstd/). To trade off more compression
-time CPU for better ratio increase the compression level or increase the block
+Try [`zstd`](https://facebook.github.io/zstd/). To spend more compression
+CPU time for better compression ratio increase the compression level or increase the block
 size. I find that in most database workloads the default level (`3`) or even
-level `1` is a good choice for write heavy datasets (getting close to `lz4`)
+level `1` is a good choice for write heavy datasets (getting closer to `lz4`)
 and level `10` is good for read heavy datasets (surpassing `gzip` in every
 dimension). Note that `zstd` strictly dominates `gzip` as it is faster and gets
 better ratio.
@@ -235,15 +235,16 @@ Even better: `zstd` supports [training dictionaries](https://facebook.github.io/
 which can really come in handy if you have lots of individually small but
 collectively large `JSON` data (looking at you tracing systems).
 
-### Best Choice - I only care about speed
+### Better Choice - I only care about speed
 
-Use [`lz4`](https://github.com/lz4/lz4). With near memory speeds and decent
+Try [`lz4`](https://github.com/lz4/lz4). With near memory speeds and decent
 ratio this algorithm is almost always a safe choice over not compressing at
 all. It has excellent language support and is exceptionally good for real-time
 compression/decompression as it is so cheap.
 
-### Best Choice - I want to shovel data from here to there
-use [`zstd --adapt`](https://facebook.github.io/zstd/). This feature
+### Better Choice - I want to shovel data from here to there
+
+Try [`zstd --adapt`](https://facebook.github.io/zstd/). This feature
 automatically adapts the compression ratio as the IO conditions change to make
 the current optimal tradeoff between CPU and "keeping the pipe fed".
 
@@ -261,8 +262,8 @@ a more expensive compression step for cheaper decompression.
 Historically we had to make tradeoffs between ratio, compression speed and
 decompression speed, but as we see with [this quick
 benchmark](https://gist.github.com/jolynch/55185e455351d6b7febb266499207afa#file-compression-sh)
-we no longer need to make tradeoffs. These days (2021) I just always reach for `lz4` or `zstd` with an appropriate
-level.
+we no longer need to make tradeoffs. These days (2021), I just reach for `zstd`
+with an appropriate level or `lz4` if I really need to minimize CPU cost.
 
 First let's look at the results for the `6.5GiB` review dataset.
 
@@ -354,6 +355,7 @@ following implementations:
 * `xxHash`: `cli`, [`python`](https://pypi.org/project/xxhash/), and [`java`](https://github.com/lz4/lz4-java#xxhash-java)
 * `lz4`: `cli`, [`python`](https://pypi.org/project/lz4/), and [`java`](https://github.com/lz4/lz4-java#lz4-java).
 * `zstd`: `cli`, [`python`](https://pypi.org/project/zstandard/), and [`java`](https://github.com/luben/zstd-jni).
+* `blake3`: [`cli`](https://github.com/BLAKE3-team/BLAKE3/releases/tag/0.3.7), and [`python`](https://pypi.org/project/blake3/)
 * [`Pinch`](https://github.com/jolynch/pinch) is a [docker image](https://hub.docker.com/r/jolynch/pinch)
   I built so I can bring my swiss-army-knife of hashing/compression techniques
-  to any server that can run docker.
+  to any server that can run docker. I use this a lot on CI/CD systems.
