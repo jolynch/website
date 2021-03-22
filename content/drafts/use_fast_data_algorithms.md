@@ -145,7 +145,7 @@ where you don't want a fast hash. For example, one situation where you want an
 intentionally slow algorithm is when dealing with passwords. In such cases you
 want a very slow hash like
 [`argon2`](https://en.wikipedia.org/wiki/Argon2),
-[`bcrypt`](https://en.wikipedia.org/wiki/Bcrypt)",
+[`bcrypt`](https://en.wikipedia.org/wiki/Bcrypt),
 [`PBKFD2`](https://en.wikipedia.org/wiki/PBKDF2) or even just a high number of
 rounds of `SHA-512`.
 
