@@ -1,6 +1,6 @@
 ---
 title: "Use Fast Data Algorithms"
-date: 2021-03-14T20:48:05-04:00
+date: 2021-03-22T20:48:05-04:00
 tags: ["software-opinions"]
 ---
 
