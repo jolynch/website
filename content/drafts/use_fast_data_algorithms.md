@@ -69,7 +69,7 @@ I typically see the following poor choices:
 
 * `md5`: This hash is both weak _and_ slow. It does have the advantage of
   being one of the fastest slow choices in standard libraries and therefore it
-  pops up everywhere. Two of my favorite examples are slow Cassandra [Quorum
+  is somewhat common. Two of my favorite examples are slow Cassandra [Quorum
   Reads](https://issues.apache.org/jira/browse/CASSANDRA-14611) and slow S3
   upload/download (seriously, just try disabling `md5` on parts and see how
   much faster S3 is).
@@ -97,8 +97,8 @@ particularly impressive. If you find yourself needing 128 bits of entropy (e.g.
 if you're hashing data for a
 [`DHT`](https://en.wikipedia.org/wiki/Distributed_hash_table)) you can either
 use the 128 bit variant or `xxh3`. If you only have an old version available
-that doesn't support the new varieties _two_ `XXH64` runs with different seeds
-is usually still faster than any other choice.
+that doesn't support the new 128 bit variant _two_ `XXH64` runs with
+different seeds is usually still faster than any other choice.
 
 ### Untrusted Data Hashes
 
@@ -191,18 +191,16 @@ Most data compresses, especially text (e.g. `JSON`). The three cases where data
 probably does not compress are if your data is random, the data was already
 compressed, or the data was encrypted. Often in databases the metadata around
 the data (e.g. write times, schemas, etc ...) probably compresses even if the
-data doesn't.
+data doesn't. There are three primary measures of a compression algorithm:
 
-**Compression ratio**: How much smaller is the result than the input?
+1. **Compression ratio**: How much smaller is the result than the input?
+2. **Compression speed**: How quickly can I compress data?
+3. **Decompression speed**: How quickly can I decompress data?
 
-**Compression speed**: How quickly can I compress data?
-
-**Decompression speed**: How quickly can I decompress data?
-
-Depending on the use cases you need some tradeoff between these three metrics.
-For example, databases doing page compression care most about decompression
-speed, file transfers care most about compression speed, archival storage
-cares most ratio, etc ...
+Depending on the use case, developers usually make some tradeoff between these
+three metrics.  For example, databases doing page compression care most about
+decompression speed, file transfers care most about compression speed, archival
+storage cares most ratio, etc ...
 
 Fast compression that gives great ratio can significantly improve most
 workloads but slow compression with bad ratio is painful and makes me sad.
