@@ -31,8 +31,13 @@ Distributed Systems
 * [`pinch`](https://github.com/jolynch/pinch) toolkit for compressing, hashing
   and moving data around as fast as you can around a network. This is just
   a docker container with all of my favorite data compression and validation
-  tools built in (e.g. `zstd`, `lz4`, `xxhash` etc ...) and soon some helpers
-  for moving large datasets to and from S3.
+  tools built in (e.g. `zstd`, `lz4`, `xxhash` etc ...) and a local `go` server
+  that can do it all via HTTP for you (assuming the commands are installed)
+* [`service-capacity-modeling`](https://github.com/Netflix-Skunkworks/service-capacity-modeling)
+  library for capacity planning (determining which kind and how much of a
+  computer to buy) for a particular workload such as Apache Cassandra or
+  Elasticsearch. Essentially a multi-variate monte carlo simulation with a
+  least regret optimizer over per workload models.
 
 
 Debugging / Performance Analysis
@@ -86,7 +91,7 @@ Machine Learning / AI
   graduate classes at MIT (6.867 and 6.868) that used genetic algorithms and
   deep learning and other such buzzwords. Surprisingly it actually worked
   pretty well.
-* [food.op](https://github.com/jolynch/food.op) recipe recommender based on
+* [`food.op`](https://github.com/jolynch/food.op) recipe recommender based on
   gradient boosting classifiers. It was a hackathon project but sorta neat to
   have recipes recommended based on previous cooking experiences.
 * [`organon`](https://github.com/jolynch/organon) symbolic constraint framework
@@ -94,3 +99,8 @@ Machine Learning / AI
   solutions. The
   [paper](https://github.com/jolynch/organon/blob/master/papers/final.pdf) is a
   decent read if you're interested in what this project can do.
+* [`service-capacity-modeling`](https://github.com/Netflix-Skunkworks/service-capacity-modeling)
+  library for capacity planning (determining which kind and how much of a
+  computer to buy) for a particular workload such as Apache Cassandra or
+  Elasticsearch. Essentially a multi-variate monte carlo simulation with a
+  least regret optimizer over per workload models.
