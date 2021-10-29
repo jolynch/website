@@ -9,7 +9,8 @@ Below are a collection of conference talks or other presentations that I've
 given, typically related to distributed systems or other software engineering
 topics:
 
-* (2021) [How Netflix Provisions Optimal Cloud Deployments of Cassandra](https://www.youtube.com/watch?v=2aBVKXi8LKk):
+* (2021) [How Netflix Provisions Optimal Cloud Deployments of Cassandra](https://www.youtube.com/watch?v=2aBVKXi8LKk)
+  ([slides](/pdf/netflix-provisions-optimal-cassandra.pdf)):
   A talk at ApacheCon 2021 I gave on how Netflix uses our [service-capacity-modeling](https://github.com/Netflix-Skunkworks/service-capacity-modeling)
   system to mathematically model and plan for capacity for petabyte scale
   database systems. The talk is about Cassandra but the approach (and library)
