@@ -2,44 +2,51 @@
 title: "Yes there has been inflation"
 date: 2021-06-03T09:32:19-04:00
 draft: true
+tags: ["economics"]
 ---
 
 I recently read [The Deficit Myth](https://www.google.com/books/edition/_/0r7_ygEACAAJ?hl=en)
 and I particularly enjoyed the insight that [inflation](https://en.wikipedia.org/wiki/Inflation)
 comes from consumer spending on supply-limited goods, _not printing money_. Put
-differently, when a consumer wants a scarce good and has more money to spend
+differently, when a consumer wants a scarce good _and_ has more money to spend
 they will accept a higher price for the same good. Inflation only occurs when
 the consumer accepts that higher price.
 
-This realization has some interesting consequences for U.S. Federal monetary policy:
+This realization has some interesting consequences for U.S. Federal
+[monetary](https://en.wikipedia.org/wiki/Monetary_policy) and
+[fiscal](https://en.wikipedia.org/wiki/Fiscal_policy) policy:
 
 1. Printing money does not inherently cause inflation. People spending money
-   causes inflation and it matters who has excess money (or credit) to spend.
+   causes inflation and it matters more _who_ has excess money (or credit) to
+   spend.
 2. Spending money to create supply only causes inflation on the materials that
    supplier requires. It is less likely consumers would see these price increases
    long term as the increased supply compensates.
-3. Tax cuts are functionally equivalent to printing money and handing it directly
-   to certain people. When you cut taxes it is better to think of it as the
-   same thing as printing money and giving it to certain citizens.
+3. For the _federal_ government, tax cuts are functionally equivalent to
+   printing money and handing it directly to certain people. Taxes remove
+   money from the system, spending creates it.
 
 Under this insight the past decade of lose money but [low
 inflation](https://fred.stlouisfed.org/graph/?g=EqRD) in the consumer price
 index ([CPI](https://www.bls.gov/cpi/)) makes sense if that money supply did
-not primarily flow to most consumers.
+not primarily flow to most consumers who buy most goods.
 
-I contend there actually has been inflation, but in things that the top
-earners in America compete for, not for everyday goods.
+I contend there actually has been inflation, but in goods that wealthy
+Americans compete for, not for everyday goods. Relatedly, I personally believe
+this is a sign we as a society are not efficiently distributing
+wealth to most people, but concentrating it in the hands of the few who then
+use it to compete for luxury goods.
 
 ## There has actually been inflation
 
 Most of the money that has been created in the past twenty years via tax cuts,
-defense spending, and government guaranteed loans (in particular mortgage
-guarantees and education loans) has flowed to generally wealthier people and
-not to most consumers.
+stock market gains, defense spending, and government guaranteed loans (in
+particular mortgage guarantees and education loans) has flowed to generally
+wealthier people and not to most consumers.
 
 Wealthy people don't compete for gallons of milk, they compete for scarce
 assets and luxury real world goods. For example, a wealthy person might compete
-with other wealthy people for (in roughly decreasing order of wealth):
+with other wealthy people for:
 
 * (Fine) Art
 * (Desirable) Land
@@ -49,7 +56,7 @@ with other wealthy people for (in roughly decreasing order of wealth):
 * (Higher) Education
 
 Average prices on all of these have increased, but just like measuring average
-latency in websites doesn't reveal much information about the system we want to
+latency doesn't reveal much information, we want to
 look at the [statistical tail](https://en.wikipedia.org/wiki/Long_tail) of the
 distribution to see where the inflation lives.
 
@@ -57,7 +64,7 @@ Unfortunately, there isn't very much in the way of price distribution data
 available for these asset classes (say relative to liquid assets like
 stocks or bonds) and I'm not sufficiently invested in this post to try to
 get it, so let's just look as some of the tail events that have happened
-in the last decade and see what we can see.
+in the last decade and see what we see.
 
 We can calculate inflation rates with a simple function
 {{< highlight python >}}
@@ -118,10 +125,10 @@ Sold for $31.9 million in 1997 this is a 10% annual inflation rate.
 inflation((31.9, 179.4), (1997, 2015)) -> 10.07
 {{< /highlight >}}
 
-As many art sales are private it is hard to know exactly how much inflation
-has been going on in the fine art community. Above we looked at some of
-the tail events happening in public auctions over the past decade and hopefully
-as the
+As many (most?) sales of art are private it is hard to know exactly how much
+inflation has been going on in the fine art community. Above we looked at some
+of the tail events happening in public auctions over the past decade and
+hopefully as the
 [LLCs](https://www.sec.gov/Archives/edgar/data/1738134/000149315218016661/partiiandiii.htm)
 created by companies like [masterworks.io](https://www.masterworks.io/) become
 more common we can finally get some accurate data on the matter.
@@ -135,10 +142,9 @@ Ideally we could break down land value separately from homes so we can look
 at how the actual scarce good (land) performs relative to the durable good
 of the house itself. I can't seem to find good data on per locality land values
 without homes on them, but [Zillow Research](https://www.zillow.com/research/data/)
-does provide the Zillow Home Value Index (ZHVI) for ["Top Tier" markets
-(65th-95% for a region)](https://files.zillowstatic.com/research/public_csvs/zhvi/City_zhvi_uc_sfrcondo_tier_0.67_1.0_sm_sa_month.csv?t=1633281985)
-which can give us some insight into how the most expensive real-estate markets
-in America have inflated since 2000.
+does provide the Zillow Home Value Index (ZHVI) for ["Top Tier"](https://files.zillowstatic.com/research/public_csvs/zhvi/City_zhvi_uc_sfrcondo_tier_0.67_1.0_sm_sa_month.csv?t=1633281985)
+markets (65% - 95% for a region) which can give us some insight into how the
+most expensive real-estate markets in America have inflated since 2000.
 
 Homes in [Atherton](https://en.wikipedia.org/wiki/Atherton,_California),
 California (rich Tech Bay Area, part of "Silicon Valley") have increased from
@@ -181,17 +187,44 @@ At the top end of the real-estate market we have also seen higher price
 increases than 2.3%, although it is very time dependent, probably around 5%
 though.
 
+### Desirable Watches
+
+I wasn't sure if I should include watches in this analysis because desireable
+luxury watches have had a somewhat large [rise in prices](https://www.cnbc.com/2021/10/13/luxury-watch-shortage-drives-growth-of-20-billion-secondhand-market.html)
+since 2019, but I do think it's a good example of the kind of supply limited
+luxury goods that wealthly people are absolutely competing for.
+
+For example, the Patek Philippe Nautilus 5711 (blue dial 1A-010) has increased
+from around $24,215 in 2013 to nearly $145,000 in 2021 according to
+[Chrono24](https://www.chrono24.com/patekphilippe/ref-57111a010.htm). Yes there
+are _stainless steel_ watches going for over one hundred thousand dollars on the
+secondary market! Rare and precious metal watches have increased perhaps even
+more such as the [Rolex Rainbow Daytona ref 116595RBOW](https://www.chrono24.com/rolex/rainbow--imod2759.htm)
+which can go for as high as $500,000 in rose gold, which were originally sold
+at $96,900 in 2018. Watches that are expressely kept scarce such as [Richard
+Mille](https://en.wikipedia.org/wiki/Richard_Mille) routinely sell for between
+a quarter and half a million dollars, often far above retail prices.
+
+{{< highlight text>}}
+inflation((24_215, 145_000), (2013, 2021)) -> 25.07
+inflation((96_900, 500_000), (2018, 2021)) -> 72.8
+{{< /highlight >}}
+
+At the top end of the luxury watch market we have seen price increases similar
+to that of art, probably because luxury watches are more art than functional.
+Although data is scarce, it's likely that luxury watches in general have seen
+around 10% inflation over the past two decades.
 
 ### Desirable Education
 
 We often hear about how the cost of higher education is increasing in
 America for a multitude of reasons. Under the "available money spent on scarce
 goods creates inflation" philosophy one might explain it primarily because
-more consumers have access to credit to pay for college (through somewhat
-punishing loan packages) while the number of slots at universities have remained
-somewhat constant.
+more consumers have access to credit (often with rather punishing terms) to
+pay for college (demand) while the number of slots at universities (supply)
+have remained somewhat constant.
 
-But the question is, at the tail, how have tuitions changed at the top three
+But at the tail how have tuitions changed at the top three
 Universities in the world (according to
 [US News and World Report](https://www.usnews.com/education/best-global-universities/rankings))?
 
@@ -220,14 +253,20 @@ for a 3.96% inflation rate.
 inflation((32_471, 73_333), (2000, 2021)) -> 3.96
 {{< /highlight >}}
 
-At the top end of the education market we have seen higher price increases
+At the top end of the education market we have again seen higher price increases
 than 2.3%, probably around 4%.
-
 
 ## Conclusion
 
-From the data we've seen looking at the price increases of goods that wealthy
-people compete on, we see about double (in some places more than double)
-the officially reported "rate of inflation". This matches with the hypothesis
-put forward by the Deficit Myth, namely that spending causes inflation, not
-money supply.
+From the data we've seen looking at the price increases of goods that wealthier
+people compete on, we see about double (in some places more than double) the
+officially reported rate of inflation. This data matches with the
+hypothesis put forward by the Deficit Myth, namely that spending causes
+inflation, not money supply.
+
+I personally worry that this data furthermore indicates the created money is
+mostly flowing to the wealthy, rather than to all Americans. If
+rich people are willing to spend $200,000 for a stainless steel watch that
+keeps time less well than a $100 quartz watch, I think it may be better to tax
+that money and spend it to buy food instead even if that causes some inflation
+in the price of food.
