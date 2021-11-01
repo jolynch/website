@@ -25,7 +25,7 @@ This realization has some interesting consequences for U.S. Federal
    printing money and handing it directly to certain people. Taxes remove
    money from the system, spending creates it.
 
-Under this insight the past decade of lose money but [low
+Under this insight the past decade of loose money but [low
 inflation](https://fred.stlouisfed.org/graph/?g=EqRD) in the consumer price
 index ([CPI](https://www.bls.gov/cpi/)) makes sense if that money supply did
 not primarily flow to most consumers who buy most goods.
@@ -188,10 +188,10 @@ though.
 
 ### Desirable Watches
 
-I wasn't sure if I should include watches in this analysis because desireable
+I wasn't sure if I should include watches in this analysis because desirable
 luxury watches have had a somewhat large [rise in prices](https://www.cnbc.com/2021/10/13/luxury-watch-shortage-drives-growth-of-20-billion-secondhand-market.html)
 since 2019, but I do think it's a good example of the kind of supply limited
-luxury goods that wealthly people are absolutely competing for.
+luxury goods that wealthy people are absolutely competing for.
 
 For example, the Patek Philippe Nautilus 5711 (blue dial 1A-010) has increased
 from around $24,215 in 2013 to nearly $145,000 in 2021 according to
@@ -210,9 +210,9 @@ inflation((96_900, 500_000), (2018, 2021)) -> 72.8
 {{< /highlight >}}
 
 At the top end of the luxury watch market we have seen price increases similar
-to that of art, probably because luxury watches are more art than functional.
-Although data is scarce, it's likely that luxury watches in general have seen
-around 10% inflation over the past two decades.
+to that of fine art, probably because luxury watches are more fine art than
+functional.  Although data is scarce, it's likely that luxury watches in
+general have experienced around 10% inflation over the past two decades.
 
 ### Desirable Education
 
@@ -223,7 +223,7 @@ more consumers have access to credit (often with rather punishing terms) to
 pay for college (demand) while the number of slots at universities (supply)
 have remained somewhat constant.
 
-But at the tail how have tuitions changed at the top three
+But at the tail, how have tuitions changed at the top three
 Universities in the world (according to
 [US News and World Report](https://www.usnews.com/education/best-global-universities/rankings))?
 
@@ -257,15 +257,20 @@ than 2.3%, probably around 4%.
 
 ## Conclusion
 
-From the data we've seen looking at the price increases of goods that wealthier
-people compete on, we see about double (in some places more than double) the
-officially reported rate of inflation. This data matches with the
-hypothesis put forward by the Deficit Myth, namely that spending causes
-inflation, not money supply.
+From the price increases of goods that wealthier people compete for, we see
+about double (in some places more than double) the officially reported rate of
+inflation of the broadly applicable CPI. This data matches with the hypothesis
+put forward by the Deficit Myth, namely that spending causes inflation, not
+money supply.
 
-I personally worry that this data furthermore indicates the created money is
-mostly flowing to the wealthy, rather than to all Americans. If
-rich people are willing to spend $200,000 for a stainless steel watch that
-keeps time less well than a $100 quartz watch, I think it may be better to tax
-that money and spend it to buy food instead even if that causes some inflation
-in the price of food.
+I by no means think we should sympathize with the inflationary pains of the
+elite, but I do fear it signals broader political ramifications. In particular,
+as the price of admission to the upper class of society increases, more
+potential [elites](https://en.wikipedia.org/wiki/Elite_overproduction) are
+shut out of upward mobility. I fear we are already seeing this as college
+degrees de-value, homes seem unattainable to many, and financial independence
+may seem unreachable.
+
+The next time you hear someone complain about money creation and inflation,
+consider instead where the money is going and ask yourself if that seems like
+a societally useful purpose.
