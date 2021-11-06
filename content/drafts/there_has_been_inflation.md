@@ -54,10 +54,11 @@ with other wealthy people for:
 * (New) Cars
 * (Higher) Education
 
-Average prices on all of these have increased, but just like measuring average
-latency doesn't reveal much information, we want to
-look at the [statistical tail](https://en.wikipedia.org/wiki/Long_tail) of the
-distribution to see where the inflation lives.
+Average prices on all of these have increased, but just like measuring [average
+latency]({{< relref supermarkets_and_efficient_queueing_part_2 >}}) doesn't
+reveal much information, we want to look at the [statistical
+tail](https://en.wikipedia.org/wiki/Long_tail) of the distribution to see where
+the inflation lives.
 
 Unfortunately, there isn't very much in the way of price distribution data
 available for these asset classes (say relative to liquid assets like
