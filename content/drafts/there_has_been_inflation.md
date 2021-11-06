@@ -25,7 +25,7 @@ This realization has some interesting consequences for U.S. Federal
    printing money and handing it directly to certain people. Taxes remove
    money from the system, spending creates it.
 
-Under this insight the past decade of loose money but [low
+Under this insight the past decade of loose monetary policy but [low
 inflation](https://fred.stlouisfed.org/graph/?g=EqRD) in the consumer price
 index ([CPI](https://www.bls.gov/cpi/)) makes sense if that money supply did
 not primarily flow to most consumers who buy most goods.
@@ -63,14 +63,14 @@ Unfortunately, there isn't very much in the way of price distribution data
 available for these asset classes (say relative to liquid assets like
 stocks or bonds) and I'm not sufficiently invested in this post to try to
 get it, so let's just look as some of the tail events that have happened
-in the last decade and see what we see.
+in the last decade and see what we see. We can calculate inflation rates with a
+simple function:
 
-We can calculate inflation rates with a simple function
 {{< highlight python >}}
 def inflation(p, y):
     """
-    Given two prices and two years, calculate the annual inflation
-    rate as a percentage (0-100)
+    Given two prices and two years, calculate the annual
+    inflation rate as a percentage (0-100)
     """
     p1, p2 = p
     y1, y2 = y
@@ -86,12 +86,36 @@ we'd see inflation of around 3% annually since 1980 and even lower around
 2.3% since 2000.
 
 {{< highlight text >}}
+# From 1980 to 2021
 inflation((77.8, 261.582), (1980, 2021)) -> 3.0
 # Or just from 2000 to 2021
 inflation((168.8, 273), (2000, 2021)) -> 2.32
 {{< /highlight >}}
 
-How does this compare to the tail of the distribution?
+In the same period [median full-time annual wages](https://fred.stlouisfed.org/series/LES1252881500Q)
+have increased as well, around 3.4% since 1980 and 2.7% since 2000. Even the
+first [decile](https://fred.stlouisfed.org/series/LEU0252911200Q) of wages have
+increased similarly (data is only available since 2000 for that series). [Median
+household income](https://fred.stlouisfed.org/series/MEHOINUSA646N) has also
+increased similarly in [current dollars](https://www.census.gov/topics/income-poverty/income/guidance/current-vs-constant-dollars.html)
+
+{{< highlight text>}}
+# Median full-time wages from 1980 to 2021
+inflation((254, 990), (1980, 2021)) -> 3.37
+# Median full-time wages from 2000 to 2021
+inflation((568, 990), (2000, 2021)) -> 2.68
+# First decile full-time from 2000 to 2021
+inflation((281, 502), (2000, 2021)) -> 2.8
+
+# Median household income from 1984 to 2020
+inflation((22_415, 67_521), (1984, 2020)) -> 3.11
+# Median household income from 1984 to 2020
+inflation((41_990, 67_521), (2000, 2020)) -> 2.4
+{{< /highlight >}}
+
+Let's focus in on the last two decades, where CPI has inflated by around 2.3%
+and median full-time wages have increased by around 2.68%. How do these average
+rates compare to prices at the tail of the distribution?
 
 ### Desirable Art
 
@@ -130,10 +154,10 @@ of the tail events happening in public auctions over the past decade and
 hopefully as the
 [LLCs](https://www.sec.gov/Archives/edgar/data/1738134/000149315218016661/partiiandiii.htm)
 created by companies like [masterworks.io](https://www.masterworks.io/) become
-more common we can finally get some accurate data on the matter.
+more common we can finally get some accurate market data.
 
-That being said, art is inflating at a rate far greater than 3%, probably closer
-to 10%.
+That being said, fine art is inflating at a rate far greater than 2.3%, probably
+closer to 10%.
 
 ### Desirable Land
 
@@ -189,20 +213,24 @@ though.
 ### Desirable Watches
 
 I wasn't sure if I should include watches in this analysis because desirable
-luxury watches have had a somewhat large [rise in prices](https://www.cnbc.com/2021/10/13/luxury-watch-shortage-drives-growth-of-20-billion-secondhand-market.html)
+luxury watches have had a somewhat large
+[rise in prices](https://www.cnbc.com/2021/10/13/luxury-watch-shortage-drives-growth-of-20-billion-secondhand-market.html)
 since 2019, but I do think it's a good example of the kind of supply limited
 luxury goods that wealthy people are absolutely competing for.
 
-For example, the Patek Philippe Nautilus 5711 (blue dial 1A-010) has increased
-from around $24,215 in 2013 to nearly $145,000 in 2021 according to
+For example, the [Patek Philippe](https://en.wikipedia.org/wiki/Patek_Philippe_SA)
+Nautilus 5711 (blue dial 1A-010) has increased from around $24,215 in 2013 to
+nearly $145,000 in 2021 according to
 [Chrono24](https://www.chrono24.com/patekphilippe/ref-57111a010.htm). Yes there
 are _stainless steel_ watches going for over one hundred thousand dollars on the
 secondary market! Rare and precious metal watches have increased perhaps even
 more such as the [Rolex Rainbow Daytona ref 116595RBOW](https://www.chrono24.com/rolex/rainbow--imod2759.htm)
-which can go for as high as $500,000 in rose gold, which were originally sold
-at $96,900 in 2018. Watches that are expressely kept scarce such as [Richard
-Mille](https://en.wikipedia.org/wiki/Richard_Mille) routinely sell for between
-a quarter and half a million dollars, often far above retail prices.
+which in rose gold were originally sold at $96,900 in 2018 and in 2021 can go for
+as high as $500,000. Watches that are intentionally kept scarce such as those
+produced by
+[Richard Mille](https://en.wikipedia.org/wiki/Richard_Mille) routinely
+sell for between a quarter and half a million dollars, often far above retail
+prices.
 
 {{< highlight text>}}
 inflation((24_215, 145_000), (2013, 2021)) -> 25.07
@@ -211,7 +239,7 @@ inflation((96_900, 500_000), (2018, 2021)) -> 72.8
 
 At the top end of the luxury watch market we have seen price increases similar
 to that of fine art, probably because luxury watches are more fine art than
-functional.  Although data is scarce, it's likely that luxury watches in
+functional. Although data is scarce, it is likely that luxury watches in
 general have experienced around 10% inflation over the past two decades.
 
 ### Desirable Education
@@ -221,10 +249,8 @@ America for a multitude of reasons. Under the "available money spent on scarce
 goods creates inflation" philosophy one might explain it primarily because
 more consumers have access to credit (often with rather punishing terms) to
 pay for college (demand) while the number of slots at universities (supply)
-have remained somewhat constant.
-
-But at the tail, how have tuitions changed at the top three
-Universities in the world (according to
+have remained somewhat constant. But at the tail, how have tuitions changed at
+the top three Universities in the world (according to
 [US News and World Report](https://www.usnews.com/education/best-global-universities/rankings))?
 
 One year of education at Harvard University has
@@ -252,8 +278,20 @@ for a 3.96% inflation rate.
 inflation((32_471, 73_333), (2000, 2021)) -> 3.96
 {{< /highlight >}}
 
+Even if we look at a large in-state university like Ohio State, we see one year
+of in-state education has increased from $12,483 in [2000](https://www.asc.ohio-state.edu/wilkins.5/osu_and_ohio/statistics/statistics01.htm)
+to $25,288 in [2021](http://undergrad.osu.edu/cost-and-aid/basic-costs) for a
+3.4% inflation rate.
+{{< highlight text >}}
+inflation((12_483, 25_288), (2000, 2021)) -> 3.42
+{{< /highlight >}}
+
 At the top end of the education market we have again seen higher price increases
-than 2.3%, probably around 4%.
+than 2.3%, probably around 4%. This was somewhat surprisingly low, in my
+opinion, as a 20 year
+[US Treasury Bond](https://www.treasury.gov/resource-center/data-chart-center/interest-rates/pages/TextView.aspx?data=yieldYear&year=2000)
+yielded around 6% in 2000, and median wage growth was around 2.68% over roughly
+the same period.
 
 ## Conclusion
 
@@ -268,9 +306,9 @@ elite, but I do fear it signals broader political ramifications. In particular,
 as the price of admission to the upper class of society increases, more
 potential [elites](https://en.wikipedia.org/wiki/Elite_overproduction) are
 shut out of upward mobility. I fear we are already seeing this as college
-degrees de-value, homes seem unattainable to many, and financial independence
-may seem unreachable.
+degrees de-value, owning homes seem unattainable to many, and financial
+independence often may seem unreachable.
 
 The next time you hear someone complain about money creation and inflation,
 consider instead where the money is going and ask yourself if that seems like
-a societally useful purpose.
+a societally beneficial use of that money.
