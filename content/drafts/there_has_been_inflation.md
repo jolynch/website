@@ -291,8 +291,12 @@ At the top end of the education market we have again seen higher price increases
 than 2.3%, probably around 4%. This was somewhat surprisingly low, in my
 opinion, as a 20 year
 [US Treasury Bond](https://www.treasury.gov/resource-center/data-chart-center/interest-rates/pages/TextView.aspx?data=yieldYear&year=2000)
-yielded around 6% in 2000, and median wage growth was around 2.68% over roughly
-the same period.
+yielded around 6% in 2000 (although only 1.5%
+[today](https://www.treasury.gov/resource-center/data-chart-center/interest-rates/pages/TextView.aspx?data=yieldYear&year=2021)),
+and median household wage growth was around 2.4% over roughly the same period.
+There is likely further analysis to do here, however, around the real cost of
+University as a larger share of college is paid for with debt rather than
+income or savings.
 
 ## Conclusion
 
