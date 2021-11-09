@@ -110,7 +110,7 @@ inflation((281, 502), (2000, 2021)) -> 2.8
 
 # Median household income from 1984 to 2020
 inflation((22_415, 67_521), (1984, 2020)) -> 3.11
-# Median household income from 1984 to 2020
+# Median household income from 2000 to 2020
 inflation((41_990, 67_521), (2000, 2020)) -> 2.4
 {{< /highlight >}}
 
