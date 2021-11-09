@@ -115,7 +115,7 @@ inflation((41_990, 67_521), (2000, 2020)) -> 2.4
 {{< /highlight >}}
 
 Let's focus in on the last two decades, where CPI has inflated by around 2.3%
-and median full-time wages have increased by around 2.68%. How do these average
+and median household income have increased by around 2.4%. How do these average
 rates compare to prices at the tail of the distribution?
 
 ### Desirable Art
@@ -288,15 +288,17 @@ inflation((12_483, 25_288), (2000, 2021)) -> 3.42
 {{< /highlight >}}
 
 At the top end of the education market we have again seen higher price increases
-than 2.3%, probably around 4%. This was somewhat surprisingly low, in my
+than 2.3%, probably around 4%. This was somewhat surprisingly low to me, in my
 opinion, as a 20 year
 [US Treasury Bond](https://www.treasury.gov/resource-center/data-chart-center/interest-rates/pages/TextView.aspx?data=yieldYear&year=2000)
 yielded around 6% in 2000 (although only 1.5%
 [today](https://www.treasury.gov/resource-center/data-chart-center/interest-rates/pages/TextView.aspx?data=yieldYear&year=2021)),
 and median household wage growth was around 2.4% over roughly the same period.
-There is likely further analysis to do here, however, around the real cost of
-University as a larger share of college is paid for with debt rather than
-income or savings.
+Bear in mind though that these are annually compounding rates, so over many
+years small percentage differences can manifest in large outcomes. In addition,
+there is likely further analysis to do here around the real cost of University
+as a larger share of college is paid for with debt rather than pure income or
+savings.
 
 ## Conclusion
 
@@ -311,8 +313,8 @@ elite, but I do fear it signals broader political ramifications. In particular,
 as the price of admission to the upper class of society increases, more
 potential [elites](https://en.wikipedia.org/wiki/Elite_overproduction) are
 shut out of upward mobility. I fear we are already seeing this as college
-degrees de-value, owning homes seem unattainable to many, and financial
-independence often may seem unreachable.
+degrees devalue, owning homes seem unattainable to many, and financial
+independence may be out of reach.
 
 The next time you hear someone complain about money creation and inflation,
 consider instead where the money is going and ask yourself if that seems like
