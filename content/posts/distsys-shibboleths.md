@@ -9,10 +9,10 @@ word or phrasing that indicate membership in a particular group or culture. I
 was introduced to the term in the [West Wing](https://youtu.be/fqkaBEWPH18?t=24)
 where the President needed to verify the veracity of a person claiming religious persecution.
 
-I'm still a reasonably new engineer in distributed systems, having only studied
-and worked in the field for around ten years, but in that time I believe I have
-learned to recognize some key "distsys shibboleths" that help me recognize when
-I can trust what database vendor is telling me. They may also help in
+I'm still a relatively new engineer in the field of distributed systems, having
+only studied and worked in the field for around ten years, but in that time I
+believe I have learned to recognize some key "distsys shibboleths" that help me
+recognize when I can trust what a vendor is telling me.
 
 
 # Positive Shibboleths
