@@ -1,6 +1,6 @@
 ---
-title: "Yes there has been inflation"
-date: 2021-10-30T09:32:19-04:00
+title: "Yes There Has Been Inflation"
+date: 2021-11-11T09:32:19-04:00
 tags: ["economics"]
 ---
 
