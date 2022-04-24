@@ -1,12 +1,12 @@
 ---
 title: "Distributed Systems Shibboleths"
-date: 2022-04-17T11:28:49-05:00
+date: 2022-04-24T11:28:49-05:00
 ---
 
 [Shibboleths](https://en.wikipedia.org/wiki/Shibboleth) are historically a
 word or phrasing that indicate membership in a particular group or culture. I
 was introduced to the term in the [West Wing](https://youtu.be/fqkaBEWPH18?t=24)
-where the President needed to verify the veracity of a person claiming
+where the President needed to verify the veracity of a person's claims of
 religious persecution.
 
 I am still a relatively new engineer in the field of distributed systems,
@@ -54,37 +54,38 @@ A robust distributed system makes constant incremental progress and does not
 have "big bang" operations. For example:
 
 * An incremental backup or data replication system breaks the snapshot down
-  into small, easy-to-recover pieces or work and checkpoints progress so the
+  into small, easy-to-recover pieces of work and checkpoints progress so the
   system can recover from failure.
-* When a distributed database is accepting distributed
-  [DDL](https://en.wikipedia.org/wiki/Data_definition_language) it accepts
-  the request, writes it down in a ledger and returns an async job id the user
-  can poll for completion (since DDL may take time to occur). As leader nodes
+* When a distributed database accepts
+  [DDL](https://en.wikipedia.org/wiki/Data_definition_language) it accepts the
+  request, writes it down in a ledger and returns an async job id the user can
+  poll for completion (since DDL may take time to occur). As leader nodes
   that accept mutations incrementally complete the schema change they surface
   that progress.
-* An incremental full scan API is paginated and resumable with a previously
+* An incremental full-scan API is paginated and resumable with a previously
   received page token. This allows readers to resume after an error or
   network failure.
 * Rather than only communicating when there is something to do, sending
   a periodic heartbeat allows systems to turn silence into incremental
   progress.
 
-For me this is such a positive indication because it means the person
-designing the system has a true understanding that partitions happen for all
-kinds of reasons (network failure, lock contention, garbage collection —
-your CPU might just stop running code for a bit while it does a microcode
-update) and the only defense is breaking down your larger problem into smaller
-incremental problems that you don't mind having to re-solve in the error case.
+For me, this is a positive indication because it means the person designing the
+system has a true understanding that partitions happen for all kinds of
+reasons: network delay/failure, lock contention, garbage collection, or your
+CPU might just stop running code for a bit while it does a [microcode
+update](https://aws.amazon.com/security/security-bulletins/AWS-2018-013/v11/).
+The only defense is breaking down your larger problem into smaller incremental
+problems that you don't mind having to re-solve in the error case.
 
 > Every component is **crash-only**
 
 I like to think of this one as the programming paradigm which collectively
-encourages you to "make operations idempotent and make incremental progress"
+encourages you to "make operations idempotent *and* make incremental progress"
 because handling errors by crashing forces you to decompose your programs into
-small idempotent processors that make incremental progress. In my experience
+small idempotent processors that make incremental progress. In my experience,
 [crash-only](https://www.usenix.org/legacy/events/hotos03/tech/full_papers/candea/candea_html/index.html)
 software is by far the most reliable way to build distributed systems because
-it forces you to actually build robust crash-recovery.
+it gives you no choice but to design for failure.
 
 > We **shard it** on \<some reasonably high cardinality value\>
 
@@ -93,16 +94,18 @@ running a single instance of PostgreSQL right?). A fundamental aspect of
 building a distributed system is figuring out how you are going to distribute
 the data and processing. This technique of limiting responsibility for subsets
 of data to different sets of computers is the well-known process of
-[sharding](https://en.wikipedia.org/wiki/Shard_(database_architecture)).
+[sharding](https://en.wikipedia.org/wiki/Shard_(database_architecture)). A
+carefully-thought-out shard key can easily be the difference between a reliable
+system and a constantly overloaded one.
 
 # Negative Shibboleths
 
 On the opposing side to positive Shibboleths, negative ones are phrases or
 statements that immediately signal to me that the person I'm talking to is
 either misinformed or worse intentionally trying to deceive me. I personally
-experience more ignorance than deception, except for when vendors are involved
-(in my experience database vendors will say all kinds of nonsensical things
-to get people to buy their database).
+experience more ignorance than deception, except perhaps for when vendors are
+involved (in my experience database vendors will say all kinds of nonsensical
+things to get people to buy their database).
 
 > Our system is **Consistent and Available**.
 
@@ -136,7 +139,7 @@ is demonstrated to be impossible in the
 These words matter because building idempotency has to be something you thread
 through your whole distributed system, all the way down to the system that is
 mutating the source of truth state and all the way up to your clients. It takes
-effort to build idempotency in, but it is the only way.
+effort to build in idempotency, and can be difficult to add as an afterthought.
 
 I've heard this a lot from Kafka fans recently where they implemented at-least-once
 delivery with idempotent processing and have been claiming various places "we
@@ -156,7 +159,7 @@ what happened. The main advantage of distributed transactions is that they make
 distributed systems look less distributed by choosing `CP`, but that inherently
 trades off availability! Distributed transactions do not instantly solve your
 distributed systems problems, they just make a `PACELC` choice that sacrifices
-availability under partitions but try to make the window of unavailability as
+availability under partitions but tries to make the window of unavailability as
 small as possible.
 
 An example of how transactions do not help, even with a `CP` system, is if you
@@ -164,10 +167,10 @@ implement a distributed counter by transactionally adding one to a register
 (e.g. `x = x + 1`), you have _not solved your distributed systems problem_. You
 just implemented an at-least-once counter that overcounts (a.k.a. corrupts your
 counters) during partitions. To actually solve the problem you have to model
-your counting events in a way that makes them idempotent. For example you could
-place a unique identifier on every count event and then roll up those deltas in
-the background and transactionally advance a summary, either preventing
-ingestion after some time delay or handling recounting.
+your counting events in a way that makes them idempotent. For example, you
+could place a unique identifier on every count event and then roll up those
+deltas in the background and transactionally advance a summary, either
+preventing ingestion after some time delay or handling recounting.
 
 > I will take a **distributed lock**
 
