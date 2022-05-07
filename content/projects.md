@@ -10,6 +10,16 @@ Below are some of my projects roughly categorized by area.
 Distributed Systems
 -------------------
 
+* [`service-capacity-modeling`](https://github.com/Netflix-Skunkworks/service-capacity-modeling)
+  library for capacity planning (determining which kind and how much of a
+  computer to buy) for a particular workload such as Apache Cassandra or
+  Elasticsearch. Essentially a multi-variate monte carlo simulation with a
+  least regret optimizer over per workload models.
+* [`jvmquake`](https://github.com/jolynch/jvmquake) agent for rescuing
+  distributed databases written in Java from themselves by killing them (while
+  grabbing a core dump) when they enter JVM death spirals. This is basically an
+  extension of [`jvmkill`](https://github.com/airlift/jvmkill) that also
+  detects GC spirals of death.
 * [`synapse`](https://github.com/airbnb/synapse) and
   [`nerve`](https://github.com/airbnb/nerve) service mesh aka SmartStack. I help
   maintain and have contributed significant features to Airbnb's service mesh,
@@ -21,11 +31,6 @@ Distributed Systems
   was a somewhat minor contributor to Paasta, mostly working on SmartStack
   integrations, but I did help port the whole codebase to Python 3 so that was
   interesting...
-* [`jvmquake`](https://github.com/jolynch/jvmquake) agent for rescuing
-  distributed databases written in Java from themselves by killing them (while
-  grabbing a core dump) when they enter JVM death spirals. This is basically an
-  extension of [`jvmkill`](https://github.com/airlift/jvmkill) that also
-  detects GC spirals of death.
 * [`Priam`](https://github.com/Netflix/Priam) distributed sidecar for Apache
   Cassandra. I work on this at Netflix, improving operability of Cassandra.
 * [`pinch`](https://github.com/jolynch/pinch) toolkit for compressing, hashing
@@ -33,12 +38,6 @@ Distributed Systems
   a docker container with all of my favorite data compression and validation
   tools built in (e.g. `zstd`, `lz4`, `xxhash` etc ...) and a local `go` server
   that can do it all via HTTP for you (assuming the commands are installed)
-* [`service-capacity-modeling`](https://github.com/Netflix-Skunkworks/service-capacity-modeling)
-  library for capacity planning (determining which kind and how much of a
-  computer to buy) for a particular workload such as Apache Cassandra or
-  Elasticsearch. Essentially a multi-variate monte carlo simulation with a
-  least regret optimizer over per workload models.
-
 
 Debugging / Performance Analysis
 --------------------------------
@@ -86,6 +85,11 @@ Debate
 Machine Learning / AI
 ---------------------
 
+* [`service-capacity-modeling`](https://github.com/Netflix-Skunkworks/service-capacity-modeling)
+  library for capacity planning (determining which kind and how much of a
+  computer to buy) for a particular workload such as Apache Cassandra or
+  Elasticsearch. Essentially a multi-variate monte carlo simulation with a
+  least regret optimizer over per workload models.
 * [`python_hqsom`](https://github.com/jolynch/python-hqsom) implementation of
   the HQSOM deep learning algorithm. This was a project I worked on for a few
   graduate classes at MIT (6.867 and 6.868) that used genetic algorithms and
@@ -99,8 +103,3 @@ Machine Learning / AI
   solutions. The
   [paper](https://github.com/jolynch/organon/blob/master/papers/final.pdf) is a
   decent read if you're interested in what this project can do.
-* [`service-capacity-modeling`](https://github.com/Netflix-Skunkworks/service-capacity-modeling)
-  library for capacity planning (determining which kind and how much of a
-  computer to buy) for a particular workload such as Apache Cassandra or
-  Elasticsearch. Essentially a multi-variate monte carlo simulation with a
-  least regret optimizer over per workload models.

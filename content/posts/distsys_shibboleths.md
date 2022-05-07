@@ -1,6 +1,7 @@
 ---
 title: "Distributed Systems Shibboleths"
 date: 2022-04-24T11:28:49-05:00
+tags: ["software-opinions"]
 ---
 
 [Shibboleths](https://en.wikipedia.org/wiki/Shibboleth) are historically a
