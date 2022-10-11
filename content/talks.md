@@ -9,6 +9,11 @@ Below are a collection of conference talks or other presentations that I've
 given, typically related to distributed systems or other software engineering
 topics:
 
+* (2022) Improving Cassandra Client Load Balancing ([slides](/pdf/wlllb-apachecon-2022.pdf)):
+  A talk Ammar Khaku and I from Netflix gave at ApacheCon 2022 on how we
+  cut database latency by 30% or more using a novel weighting technique
+  in coordinator selection. The talk is about Cassandra but the algorithm
+  is generically useful for clients of stateful systems.
 * (2021) [How Netflix Provisions Optimal Cloud Deployments of Cassandra](https://www.youtube.com/watch?v=2aBVKXi8LKk)
   ([slides](/pdf/netflix-provisions-optimal-cassandra.pdf)):
   A talk at ApacheCon 2021 I gave on how Netflix uses our [service-capacity-modeling](https://github.com/Netflix-Skunkworks/service-capacity-modeling)
