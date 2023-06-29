@@ -1,4 +1,5 @@
 public
+.hugo_build.lock
 
 # Vim
 [._]*.s[a-v][a-z]
