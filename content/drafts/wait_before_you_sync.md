@@ -91,19 +91,19 @@ going even further and calling `fdatasync`
 [more frequently](https://gist.github.com/jolynch/a67a2bbd235dcbc3a6e1b0d47ea6a3be#file-benchmark-run-sh)
 over multiple trials (condolences to my SSD):
 {{< highlight text >}}
-Strategy       | p50 time-to-write |
-------------------------------------
-never          |           151.0ms |
-end            |           663.5ms |
-100MiB         |           738.5ms |
-10MiB          |          1127.0ms |
-1MiB           |          3159.5ms |
-512KiB         |          5955.0ms |
-256KiB         |         10695.5ms |
-128KiB         |         17842.5ms |
-64KiB          |         26912.5ms |
-32KiB          |         52306.0ms |
-16KiB          |        111981.0ms |
+Strategy  | p50 time-to-write |
+-------------------------------
+never     |           151.0ms |
+end       |           663.5ms |
+100MiB    |           738.5ms |
+ 10MiB    |          1127.0ms |
+  1MiB    |          3159.5ms |
+512KiB    |          5955.0ms |
+256KiB    |         10695.5ms |
+128KiB    |         17842.5ms |
+ 64KiB    |         26912.5ms |
+ 32KiB    |         52306.0ms |
+ 16KiB    |        111981.0ms |
 {{< /highlight >}}
 
 
