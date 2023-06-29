@@ -1,6 +1,6 @@
 ---
 title: "Wait Before You Sync"
-date: 2022-06-25T11:40:04-04:00
+date: 2023-06-29T11:40:04-04:00
 ---
 
 I work with distributed databases, and one of the number one performance issues
@@ -48,8 +48,8 @@ would be correct:
 * Can't tell - Sometimes the `read` syscall hangs forever
 
 The presence of the `fdatasync` on line 3 does not guarantee that any
-subsequent read will observe the correct data, it just guarantees that the
-kernel will have attempted to flush data from page cache to disk and, as of
+subsequent read (line 6) will observe the correct data, it just guarantees that
+the kernel will have attempted to flush data from page cache to disk and, as of
 Linux 4.13, if the kernel knows that it didn't make it there, processes with
 open file descriptors referencing those pages should get an `EIO`.
 
@@ -57,13 +57,16 @@ Remember that even when you call `fdatasync` you have to do something
 reasonable with the `EIO`, which in the case of a distributed database is
 usually to drop the corrupt data from view and either re-replicate the affected
 ranges from other nodes or possibly even replacing the faulty node with fresh
-hardware. *This can equally be done on a checksum failure*.
+hardware. If you are running a SQL setup the equivalent would be triggering
+a failover to a hot standby after taking downtime to play/resolve the remaining
+replication stream. *These actions can equally be done on a checksum failure*.
 
 So why call `fdatasync` at all? We still want to sync in the background
 because we both want to make sure we are not accepting data faster than our
 underlying hardware can actually handle it and we *do* want to find out
 about disk failures in a reasonable amount of time so we can trigger recovery,
-ideally while data still lives in a time based replicated commit log.
+ideally while data still lives in a time based replicated commit log or
+replication data structure.
 
 # Show me the numbers
 To show how disastrous adding `fdatasync` into the hot path of a writes are,
@@ -86,21 +89,21 @@ It is clear that calling `fdatasync` anything more than every ~10MiB starts
 to tank performance. To see just how bad it can get we can run the benchmark
 going even further and calling `fdatasync`
 [more frequently](https://gist.github.com/jolynch/a67a2bbd235dcbc3a6e1b0d47ea6a3be#file-benchmark-run-sh)
-(🫡 to my poor SSD):
+over multiple trials (condolences to my SSD):
 {{< highlight text >}}
-Strategy       | Median time-to-write |
----------------------------------------
-never          |              151.0ms |
-end            |              663.5ms |
-100MiB         |              738.5ms |
-10MiB          |             1127.0ms |
-1MiB           |             3159.5ms |
-512KiB         |             5955.0ms |
-256KiB         |            10695.5ms |
-128KiB         |            17842.5ms |
-64KiB          |            26912.5ms |
-32KiB          |            52306.0ms |
-16KiB          |           111981.0ms |
+Strategy       | p50 time-to-write |
+------------------------------------
+never          |           151.0ms |
+end            |           663.5ms |
+100MiB         |           738.5ms |
+10MiB          |          1127.0ms |
+1MiB           |          3159.5ms |
+512KiB         |          5955.0ms |
+256KiB         |         10695.5ms |
+128KiB         |         17842.5ms |
+64KiB          |         26912.5ms |
+32KiB          |         52306.0ms |
+16KiB          |        111981.0ms |
 {{< /highlight >}}
 
 
