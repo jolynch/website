@@ -5,8 +5,8 @@ date: 2023-06-29T11:40:04-04:00
 
 I work with distributed databases, and one of the number one performance issues
 I see is when they put
-[`fdatasync`](https://linux.die.net/man/2/fdatasync) in the hot path of data
-mutation.
+[`fdatasync`](https://linux.die.net/man/2/fdatasync) calls in the critical path
+of accepting writes.
 
 > **Please stop putting `fdatasync` in the hot path**. Call it in the
   background every ~10-30 seconds or O(100MiB) written, as a *performance*
@@ -17,8 +17,8 @@ mutation.
 For a single machine database in the 1990s with only local drives for
 durability, `fdatasync` may have played a correctness role, but modern
 distributed databases should _only_ use `fdatasync` as a way to ensure they
-don't queue unbounded data into page cache, [which would eventually force synchronous
-writeback](https://github.com/firmianay/Life-long-Learner/blob/master/linux-kernel-development/chapter-16.md).
+don't queue unbounded data into page cache, [which would eventually force
+synchronous writeback](https://github.com/firmianay/Life-long-Learner/blob/master/linux-kernel-development/chapter-16.md).
 Instead, most still-correct-but-higher-performance storage engines prefer to
 periodically and asynchronously (not in the critical path of writes) trigger
 syncs to avoid writeback and to eventually learn of disk failure.
@@ -34,7 +34,7 @@ occur on a SSD:
 (3) assert(fdatasync(fd) == 0)
 (4) assert(close(fd) == 0)
 
-// Now wait ~5 seconds and try to read what we wrote
+// Now wait ~5 seconds and try to read
 (5) fd = open("file.db")
 (6) read(fd, buf)
 {{< /highlight >}}
@@ -80,8 +80,8 @@ test. The benchmark writes `1GiB` of data with different strategies of calling
 512GB` NVMe flash drive.  This drive theoretically can achieve `~2.7GiB/s`
 although in this case it maxes out around ~`1.5GiB/s`.
 
-The time to write 1GiB with no `fdatasync`, one `fdatasync` at the end
-of the 1GiB, and then one call every `100MiB`, `10MiB`, and `1MiB` are as follows:
+The time to write `1GiB` with no `fdatasync`, one `fdatasync` at the end of the
+`1GiB`, and then one call every `100MiB`, `10MiB`, and `1MiB` are as follows:
 
 [![fsync_qualitative](/img/fsync_qualitative.svg)](/img/fsync_qualitative.svg)
 
@@ -111,35 +111,36 @@ A plot of this data going out all the way to 16KiB writebacks shows that the
 pattern of writes getting unbearably slow as flushes get smaller:
 [![fsync_qualitative](/img/fsync_quantitative.svg)](/img/fsync_quantitative.svg)
 
-From this data it is clear calling `fdatasync` too often completely tanks
+From this data it is clear that calling `fdatasync` too often completely tanks
 performance on modern fast NVMe drives. I've seen some databases that call
-`fdatasync` after _every_ write transaction, typically because of a clear
+`fdatasync` after _every_ write transaction, typically because of a
 misunderstanding of the failure modes of actual hardware.
 
 # Concerns
-Database engineers often have concerns when I argue we should be waiting before
-we `fdatasync`. Let's go through them.
+Database engineers often have concerns when I propose we should be waiting
+before we `fdatasync`. Let's go through them.
 
 ## But I care about Correctness!
 
 Great, I do too! The way to be correct and durable is to run your transactions
-through quorums of replicas e.g. via having multiple replicas running
-[Paxos](https://en.wikipedia.org/wiki/Paxos_(computer_science))
-(or [Raft](https://raft.github.io/raft.pdf) if you
-like that flavor of consensus better) to admit mutations into the distributed
-commit log. These commit log files should be written to ~32-128MiB segments
+through quorums of replicas either with a `leader -> follower + witness` setup
+or via having multiple replicas running
+[Paxos](https://en.wikipedia.org/wiki/Paxos_(computer_science)) (or
+[Raft](https://raft.github.io/raft.pdf) if you like that flavor of consensus
+better) to admit mutations into the distributed commit log. On each machine
+accepting to the commit log the files should be written to ~32-128MiB segments
 append-only and with locks provided by the process. Then, have a background
 thread that opens the segment files and calls `fdatasync` every ~10-30 seconds
 (or some size like `100-1000MiB` whichever comes first) so you give your drives
-nice constant amounts of work. Remember to use the 
+nice constant amounts of work. Remember to use the
 [`kyber`](https://www.kernel.org/doc/html/latest/block/kyber-iosched.html)
 IO scheduler so your read latencies are not affected by these background flushes.
 
 Finally, put checksums such as a [`xxhash`](https://github.com/Cyan4973/xxHash)
 along with every block of data written to the commitlog files and any on-disk
-state you write. When reading files you must check the checksums for any blocks
-of data read, and if checksums ever fail or you receive an `EIO` treat the
-entire block of data in that file as corrupt.
+state you write. When reading files, the read path must check the checksums for
+any blocks of data it reads, and if checksums ever mismatch or result an `EIO`
+treat the entire block of data in that file as corrupt.
 
 ## But what about machine reboots?
 
@@ -151,9 +152,27 @@ page cache will be preserved across the reboot too!
 
 For unintentional reboots, treat it as a machine failure: either throw the
 machine away (practice failure recovery) or recover the ~10-30 seconds of data
-from neighbors. The reboot duration was likely longer than the last background
-`fdatasync` by a lot, so you will have to recover the writes you've missed either
-way - this is where having a distributed log to replay comes in handy.
+from neighbors. The reboot duration, where the node was missing writes, was
+likely significantly longer than the last background `fdatasync`, so you will
+have to recover the writes you've missed either way - this is where having a
+distributed replication log to replay comes in handy.
+
+
+## But what if I need to see the write in another process?
+
+On Linux with a POSIX compliant filesystem, any
+[`write`](https://man7.org/linux/man-pages/man2/write.2.html) syscall has a
+strong read-after-write guarantee without a `fdatasync`. If the kernel caches a
+page it must maintain that property.
+
+> POSIX requires that a read(2) that can be proved to occur after a
+  write() has returned will return the new data.  Note that not all
+  filesystems are POSIX conforming.
+
+On most database servers with `xfs` or `ext4` filesystems, `read` syscalls
+really should observe `write`s. If the database is bypassing the kernel
+entirely and trying to do their own device IO without going through
+`read`/`write` syscalls, then naturally this whole post does not apply.
 
 # Is this really a big problem?
 
