@@ -4,6 +4,13 @@ date: 2021-11-11T09:32:19-04:00
 tags: ["economics"]
 ---
 
+> **2023-07-03**: When I wrote this post, inflation in the US had just
+  started rising and everyone was saying that it was "transitory" and
+  pointed to the past decade of low inflation plus stimulus to justify
+  things would be ok. Since then, there has obviously been a large increase in
+  core inflation in 2022 and folks stopped arguing it was transitory. I still
+  think the points in this post are relevant and worth considering.
+
 I recently read [The Deficit Myth](https://www.google.com/books/edition/_/0r7_ygEACAAJ?hl=en)
 and I particularly enjoyed the insight that [inflation](https://en.wikipedia.org/wiki/Inflation)
 comes from consumer spending on supply-limited goods, _not printing money_. Put
