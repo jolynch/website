@@ -1,6 +1,7 @@
 ---
 title: "Wait Before You Sync"
-date: 2023-06-29T11:40:04-04:00
+date: 2023-07-02T11:40:04-04:00
+tags: ["software-opinions"]
 ---
 
 I work with distributed databases, and one of the number one performance issues
@@ -129,7 +130,7 @@ follower + witness` setup (~semi-sync replication) or have multiple
 replicas running
 [Paxos](https://en.wikipedia.org/wiki/Paxos_(computer_science)) (or
 [Raft](https://raft.github.io/raft.pdf) or [Atomic
-Broadcast](https://en.wikipedia.org/wiki/Atomic_broadcast) if you like those
+broadcast](https://en.wikipedia.org/wiki/Atomic_broadcast) if you like those
 flavors better) to admit mutations into the distributed commit log. On each
 machine accepting writes to the commit log, files should be written to ~32-128MiB
 segments append-only and with locks provided by the process. Then, have a
@@ -139,12 +140,14 @@ give your drives nice constant amounts of work. Remember to use the
 [`kyber`](https://www.kernel.org/doc/html/latest/block/kyber-iosched.html) IO
 scheduler so your read latencies are not affected by these background flushes.
 
-Finally, put checksums such as a [`xxhash`](https://github.com/Cyan4973/xxHash)
-along with every block of data written to the commitlog files and any on-disk
-state you write. When reading files, the read path must check the checksums for
-any blocks of data it reads, and if checksums ever mismatch or result an `EIO`
-treat the entire block of data in that file as corrupt and initiate recovery
-from replicas or backups/snapshots.
+Finally, put
+[_fast_ checksums]({{ relref use_fast_data_algorithms >}}) such as a
+[`xxhash`](https://github.com/Cyan4973/xxHash) along with every block of data
+written to the commitlog files and any on-disk state you write. When reading
+files, the read path must check the checksums for any blocks of data it reads,
+and if checksums ever mismatch or result an `EIO` treat the entire block of
+data in that file as corrupt and initiate recovery from replicas or
+backups/snapshots.
 
 ## But what about machine reboots?
 
