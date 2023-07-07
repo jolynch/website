@@ -9,6 +9,12 @@ Below are a collection of conference talks or other presentations that I've
 given, typically related to distributed systems or other software engineering
 topics:
 
+* (2022) [Capacity Plan Optimally in the Cloud](https://www.youtube.com/watch?v=Lf6B1PxIvAs)
+  A talk at AWS re:Invent 2022 about how Netflix uses
+  [`service-capacity-modeling`](https://github.com/Netflix-Skunkworks/service-capacity-modeling)
+  to optimally buy EC2 instances for a multitude of different workloads.
+  The system as presented can capacity plan computers for any cloud or
+  on premise setup as well.
 * (2022) Improving Cassandra Client Load Balancing ([slides](/pdf/wlllb-apachecon-2022.pdf)):
   A talk Ammar Khaku and I from Netflix gave at ApacheCon 2022 on how we
   cut database latency by 30% or more using a novel weighting technique
