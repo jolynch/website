@@ -8,6 +8,12 @@ meta: false
 I've mostly written blog posts and whitepapers, mostly for employers. I've
 included links here in case they might be interesting.
 
+* (2024) [Data Gateway - A Platform For Growing and Protecting the Data Tier](https://netflixtechblog.medium.com/data-gateway-a-platform-for-growing-and-protecting-the-data-tier-f1ed8db8f5c6):
+  A post I co-authored with Shahar Zimmerman, Vidhya Arvind, and Vinay Chella
+  for Netflix that shared the architecture of our Data Gateway Platform.
+  The Data Gateway Platform at Netflix hosts Data Abstraction Layers (DALs)
+  that shield Developers from complex and backwards-incompatible database API
+  changes.
 * (2020) [Towards Practical Self-Healing Distributed Databases](/pdf/practical-self-healing-databases.pdf):
   A paper published in proceedings of the [2020 IEEE Infrastructure Conference](https://ieeexplore.ieee.org/document/9377621/references#references) about how one can build self-healing
   databases out of existing software and hardware without replacing the entire
@@ -26,8 +32,7 @@ included links here in case they might be interesting.
   In this post I showed how Yelp had evolved their highly available and scalable
   service mesh based on SmartStack to use NGINX and HAProxy and get the best of
   all worlds.
-* (2016) [Monitoring Cassandra at
-  Scale](https://engineeringblog.yelp.com/2016/06/monitoring-cassandra-at-scale.html):
+* (2016) [Monitoring Cassandra at Scale](https://engineeringblog.yelp.com/2016/06/monitoring-cassandra-at-scale.html):
   A post I wrote for Yelp about how they monitored their distributed
   Cassandra deployments taking into account full ring health. Also includes
   some helpful examples for how to interact with Cassandra's JMX interface from

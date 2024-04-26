@@ -9,19 +9,19 @@ Below are a collection of conference talks or other presentations that I've
 given, typically related to distributed systems or other software engineering
 topics:
 
-* (2023) [How Netflix Ensures Highly-Reliable Online Stateful Systems](https://www.infoq.com/presentations/netflix-stateful-cache/)
+* (2023) [How Netflix Ensures Highly-Reliable Online Stateful Systems](https://www.infoq.com/presentations/netflix-stateful-cache/):
   A talk I gave at QConSF 2023 on how to structure stateful systems to be
   designed for reliability, handle load spikes, and gracefully handle failure.
   Recording, slides and summary should be available via the link.
-* (2023) [Safely migrate databases that serve millions of requests per second](https://www.youtube.com/watch?v=3bjnm1SXLlo)
+* (2023) [Safely migrate databases that serve millions of requests per second](https://www.youtube.com/watch?v=3bjnm1SXLlo):
   A talk Ayushi Singh and I gave at AWS re:Invent 2023 about how to manage
   database migrations in a safe way using cloud capabilities to ensure
   performance and correctness.
-* (2023) [How Netflix Delivers Key-Value and Time-Series Storage at Any Scale](https://www.youtube.com/watch?v=sQ-_jFgOBng)
+* (2023) [How Netflix Delivers Key-Value and Time-Series Storage at Any Scale](https://www.youtube.com/watch?v=sQ-_jFgOBng):
   The first in-depth talk Netflix has given on our Data Abstraction Layers - Vidhya
   Arvind and I present how to build KeyValue and TimeSeries solutions atop
   Cassandra to scale up as far as you need.
-* (2022) [Capacity Plan Optimally in the Cloud](https://www.youtube.com/watch?v=Lf6B1PxIvAs)
+* (2022) [Capacity Plan Optimally in the Cloud](https://www.youtube.com/watch?v=Lf6B1PxIvAs):
   A talk at AWS re:Invent 2022 about how Netflix uses
   [`service-capacity-modeling`](https://github.com/Netflix-Skunkworks/service-capacity-modeling)
   to optimally buy EC2 instances for a multitude of different workloads.
