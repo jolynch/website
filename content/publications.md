@@ -8,6 +8,11 @@ meta: false
 I've mostly written blog posts and whitepapers, mostly for employers. I've
 included links here in case they might be interesting.
 
+* (2024) [How Netflix Ensures Highly-Reliable Online Stateful Systems](https://www.infoq.com/articles/netflix-highly-reliable-stateful-systems/):
+  An article published on InfoQ on how to structure stateful systems to be
+  designed for reliability, handle load spikes, and gracefully handle failure.
+  A review article of the [same talk](https://www.infoq.com/presentations/netflix-stateful-cache/)
+  from QConSF 2023.
 * (2024) [Data Gateway - A Platform For Growing and Protecting the Data Tier](https://netflixtechblog.medium.com/data-gateway-a-platform-for-growing-and-protecting-the-data-tier-f1ed8db8f5c6):
   A post I co-authored with Shahar Zimmerman, Vidhya Arvind, and Vinay Chella
   for Netflix that shared the architecture of our Data Gateway Platform.
