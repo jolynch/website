@@ -9,7 +9,7 @@ Below are a collection of conference talks or other presentations that I've
 given, typically related to distributed systems or other software engineering
 topics:
 
-* (2023) [How Netflix Ensures Highly-Reliable Online Stateful Systems](https://www.infoq.com/presentations/netflix-stateful-cache/):
+* (2023) [**How Netflix Ensures Highly-Reliable Online Stateful Systems**](https://www.infoq.com/presentations/netflix-stateful-cache/):
   A talk I gave at QConSF 2023 on how to structure stateful systems to be
   designed for reliability, handle load spikes, and gracefully handle failure.
   Recording, slides and summary should be available via the link.
@@ -21,7 +21,7 @@ topics:
   The first in-depth talk Netflix has given on our Data Abstraction Layers - Vidhya
   Arvind and I present how to build KeyValue and TimeSeries solutions atop
   Cassandra to scale up as far as you need.
-* (2022) [Capacity Plan Optimally in the Cloud](https://www.youtube.com/watch?v=Lf6B1PxIvAs):
+* (2022) [**Capacity Plan Optimally in the Cloud**](https://www.youtube.com/watch?v=Lf6B1PxIvAs):
   A talk at AWS re:Invent 2022 about how Netflix uses
   [`service-capacity-modeling`](https://github.com/Netflix-Skunkworks/service-capacity-modeling)
   to optimally buy EC2 instances for a multitude of different workloads.
@@ -38,7 +38,7 @@ topics:
   system to mathematically model and plan for capacity for petabyte scale
   database systems. The talk is about Cassandra but the approach (and library)
   supports any stateful system.
-* (2020) [Towards Practical Self-Healing Distributed Databases](https://www.youtube.com/watch?v=9wAM7L49agM):
+* (2020) [**Towards Practical Self-Healing Distributed Databases**](https://www.youtube.com/watch?v=9wAM7L49agM):
   A talk at ApacheCon 2020 I gave on the self-healing database architecture and
   how to apply that to Cassandra. If you are trying to maintain a large scale
   database infrastructure this talk might have some useful tips.
@@ -59,7 +59,7 @@ topics:
 * (2018) [Repair Service and Cassandra](https://youtu.be/KSmAdtMJYEo?list=PLBEdfxkxBbYHjAKk4N05vW1UerK-_WDeN&t=1526):
   Part of Netflix's OSS Meetup about Polyglot Persistence. Vinay Chella
   and I talk about how we built a repair scheduler for OSS Cassandra.
-* (2016) [Building a Powerful Data Tier from Open Source Databases](https://www.youtube.com/watch?v=wOqxgC8cUWs):
+* (2016) [**Building a Powerful Data Tier from Open Source Databases**](https://www.youtube.com/watch?v=wOqxgC8cUWs):
   A talk I gave at OSCON London 2016 about how to build a polyglot
   datastore data tier using open source datastores.
 * (2016) [The Human Side of Service-Oriented Architectures](https://www.youtube.com/watch?v=je6VB4RXzzY): A talk
