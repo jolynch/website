@@ -8,11 +8,17 @@ meta: false
 I've mostly written blog posts and whitepapers, mostly for employers. I've
 included links here in case they might be interesting.
 
+* (2024, Netflix) [Introducing Netflix’s Key-Value Data Abstraction Layer](https://netflixtechblog.com/introducing-netflixs-key-value-data-abstraction-layer-1ea8a0a11b30):
+  A post I co-authored with Vidhya Arvind, Rajasekhar Ummadisetty, and Vinay Chella
+  for Netflix that shared how we built our Key-Value Data Abstraction Layer
+  on the Data Gateway platform. Goes into some great API design tips for
+  making reliable stateful systems.
 * (2024, InfoQ) [**How Netflix Ensures Highly-Reliable Online Stateful Systems**](https://www.infoq.com/articles/netflix-highly-reliable-stateful-systems/):
   An article published on InfoQ on how to structure stateful systems to be
   designed for reliability, handle load spikes, and gracefully handle failure.
   A review article of the [same talk](https://www.infoq.com/presentations/netflix-stateful-cache/)
-  from QConSF 2023.
+  from QConSF 2023. Also included in PDF form in the
+  [Architecture Through Different Lenses](https://www.infoq.com/minibooks/architecture-different-lenses/) eMag.
 * (2024, Netflix) [Enhancing Netflix Reliability with Service-Level Prioritized Load Shedding](https://netflixtechblog.medium.com/enhancing-netflix-reliability-with-service-level-prioritized-load-shedding-e735e6ce8f7d):
   A post I co-authored with Anirudh Mendiratta, Kevin Wang, Javier Fernandez-Ivern
   and Benjamin Fedorka for Netflix that shared how we implemented
