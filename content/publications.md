@@ -8,6 +8,11 @@ meta: false
 I've mostly written blog posts and whitepapers, mostly for employers. I've
 included links here in case they might be interesting.
 
+* (2024, Netflix) [Introducing Netflix's TimeSeries Data Abstraction Layer](https://netflixtechblog.com/introducing-netflix-timeseries-data-abstraction-layer-31552f6326f8):
+  A post I contributed to written by my colleagues Rajiv Shringi, Vinay Chella,
+  Kaidan Fullerton, and Oleksii Tkachuk for Netflix. The post lays out how we
+  were able to handle 15 million+ writes to immutable event datasets, including
+  concepts and architecture needed to hit this scale I co-designed with Rajiv.
 * (2024, Netflix) [Introducing Netflix’s Key-Value Data Abstraction Layer](https://netflixtechblog.com/introducing-netflixs-key-value-data-abstraction-layer-1ea8a0a11b30):
   A post I co-authored with Vidhya Arvind, Rajasekhar Ummadisetty, and Vinay Chella
   for Netflix that shared how we built our Key-Value Data Abstraction Layer
