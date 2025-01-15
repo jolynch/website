@@ -9,6 +9,12 @@ Below are a collection of conference talks or other presentations that I've
 given, typically related to distributed systems or other software engineering
 topics:
 
+* (2024) [How Netflix handles sudden load spikes in the cloud](https://www.youtube.com/watch?v=TkFyZyxFRBM)
+  A talk Rob Gulewich, Ryan Schroeder and I gave at AWS re:Invent 2024 about
+  how we combine advanced traffic management, capacity management, workload
+  prioritization, intelligent load shedding, fast autoscaling, and more to
+  survive order of magnitude traffic spikes. Slides are
+  [available here](https://reinvent.awsevents.com/content/dam/reinvent/2024/slides/nfx/NFX301_How-Netflix-handles-sudden-load-spikes-in-the-cloud.pdf).
 * (2023) [**How Netflix Ensures Highly-Reliable Online Stateful Systems**](https://www.infoq.com/presentations/netflix-stateful-cache/):
   A talk I gave at QConSF 2023 on how to structure stateful systems to be
   designed for reliability, handle load spikes, and gracefully handle failure.
