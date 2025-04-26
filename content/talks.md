@@ -16,7 +16,7 @@ topics:
   talk but covers more breadth with less depth. Spans techniques to manage traffic at the edge, through how to make
   services resilient, and all the way to making databases resilient.
 * (2024) [How Netflix handles sudden load spikes in the cloud](https://www.youtube.com/watch?v=TkFyZyxFRBM)
-  ([slides](https://reinvent.awsevents.com/content/dam/reinvent/2024/slides/nfx/NFX301_How-Netflix-handles-sudden-load-spikes-in-the-cloud.pdf))
+  ([slides](https://reinvent.awsevents.com/content/dam/reinvent/2024/slides/nfx/NFX301_How-Netflix-handles-sudden-load-spikes-in-the-cloud.pdf)):
   A talk Rob Gulewich, Ryan Schroeder and I gave at AWS re:Invent 2024 about
   how we combine advanced traffic management, capacity management, workload
   prioritization, intelligent load shedding, fast autoscaling, and more to
