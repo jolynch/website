@@ -9,12 +9,18 @@ Below are a collection of conference talks or other presentations that I've
 given, typically related to distributed systems or other software engineering
 topics:
 
+* (2025) [Techniques Netflix Uses to Weather Significant Demand Shifts](https://www.usenix.org/conference/srecon25americas/presentation/lynch)
+  ([slides](/pdf/srecon2025-techniques-to-weather-demand-shifts.pdf), [video](https://www.youtube.com/watch?v=RivD2EK5QFk&t=1s))
+  A talk I gave at SRECon 2025 about how Netflix ensures reliability of our complex architecture under order of
+  magnitude load-spikes by carefully balancing Traffic demand with Compute supply. Similar to the previous re:Invent
+  talk but covers more breadth with less depth. Spans techniques to manage traffic at the edge, through how to make
+  services resilient, and all the way to making databases resilient.
 * (2024) [How Netflix handles sudden load spikes in the cloud](https://www.youtube.com/watch?v=TkFyZyxFRBM)
+  ([slides](https://reinvent.awsevents.com/content/dam/reinvent/2024/slides/nfx/NFX301_How-Netflix-handles-sudden-load-spikes-in-the-cloud.pdf))
   A talk Rob Gulewich, Ryan Schroeder and I gave at AWS re:Invent 2024 about
   how we combine advanced traffic management, capacity management, workload
   prioritization, intelligent load shedding, fast autoscaling, and more to
-  survive order of magnitude traffic spikes. Slides are
-  [available here](https://reinvent.awsevents.com/content/dam/reinvent/2024/slides/nfx/NFX301_How-Netflix-handles-sudden-load-spikes-in-the-cloud.pdf).
+  survive order of magnitude traffic spikes.
 * (2023) [**How Netflix Ensures Highly-Reliable Online Stateful Systems**](https://www.infoq.com/presentations/netflix-stateful-cache/):
   A talk I gave at QConSF 2023 on how to structure stateful systems to be
   designed for reliability, handle load spikes, and gracefully handle failure.
