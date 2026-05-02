@@ -1,6 +1,5 @@
 baseURL = "https://jolynch.github.io/"
-googleAnalytics = "UA-155022966-1"
-languageCode = "en-us"
+locale = "en-us"
 title = "Joey Lynch's Site"
 theme = "xmin"
 
@@ -24,6 +23,9 @@ theme = "xmin"
     description = "A personal website for Joey Lynch."
     footer = "&copy; [Joey Lynch](https://jolynch.github.io) 2019-2022 | [Github](https://github.com/jolynch)"
     mainSections = ["posts"]
+
+[services.googleAnalytics]
+    id = "G-DK90FP2GLT"
 
 [markup.goldmark.renderer]
 unsafe= true
