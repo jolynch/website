@@ -8,6 +8,16 @@ meta: false
 I've mostly written blog posts and whitepapers, mostly for employers. I've
 included links here in case they might be interesting.
 
+* (2026, ACM) [**Intelligent Live Origin and Resilient Streaming**](https://dl.acm.org/doi/abs/10.1145/3789239.3793275)
+  ([pdf](/pdf/mhv2026-intelligent-live-origin-resilient-streaming.pdf)):
+  A paper I co-authored with Xiaomei Liu, Rajasekhar Ummadisetty, and Chris
+  Newton in the proceedings of the
+  [2026 Mile-High Video Conference](https://www.mile-high.video/). It describes
+  techniques for making live streaming origins more resilient by using segment
+  template awareness, multi-pipeline selection, defective segment avoidance, and
+  multi-region storage propagation to improve reliability without scaling
+  redundancy by duplicating every publishing path. I primarily contributed to
+  the storage sections.
 * (2024, Netflix) [Introducing Netflix's TimeSeries Data Abstraction Layer](https://netflixtechblog.com/introducing-netflix-timeseries-data-abstraction-layer-31552f6326f8):
   A post I contributed to written by my colleagues Rajiv Shringi, Vinay Chella,
   Kaidan Fullerton, and Oleksii Tkachuk for Netflix. The post lays out how we

@@ -20,6 +20,12 @@ Distributed Systems
   grabbing a core dump) when they enter JVM death spirals. This is basically an
   extension of [`jvmkill`](https://github.com/airlift/jvmkill) that also
   detects GC spirals of death.
+* [`tx`](https://github.com/jolynch/tx) high-performance file transfer tool
+  written in Go that saturates SSD, network, and CPU simultaneously to copy
+  directories and files up to 10x faster than `rsync`. Adaptively sizes TCP
+  connection pools, switches between no compression, `lz4`, and `zstd` based
+  on observed read/write latencies, and moves durability off the critical
+  path with batched background `fsync`s and sampled verification.
 * [`synapse`](https://github.com/airbnb/synapse) and
   [`nerve`](https://github.com/airbnb/nerve) service mesh aka SmartStack. I help
   maintain and have contributed significant features to Airbnb's service mesh,
@@ -38,7 +44,7 @@ Distributed Systems
   a docker container with all of my favorite data compression and validation
   tools built in (e.g. `zstd`, `lz4`, `xxhash` etc ...) and a local `go` server
   that can do it all via HTTP for you (assuming the commands are installed)
-
+  
 Debugging / Performance Analysis
 --------------------------------
 
