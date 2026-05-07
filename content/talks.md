@@ -9,8 +9,8 @@ Below are a collection of conference talks or other presentations that I've
 given, typically related to distributed systems or other software engineering
 topics:
 
-* (2025) [How Netflix Shapes Our Fleet for Efficiency and Reliability](https://qconsf.com/presentation/nov2025/how-netflix-shapes-our-fleet-efficiency-and-reliability)
-  ([slides](/pdf/qconsf2025-how-netflix-shapes-efficiency-reliability.pdf), video requires infoq account login):
+* (2025) [How Netflix Shapes Our Fleet for Efficiency and Reliability](https://www.infoq.com/presentations/strategy-workload-hardware/)
+  ([slides](/pdf/qconsf2025-how-netflix-shapes-efficiency-reliability.pdf)):
   A talk Argha C. and I gave at QConSF 2025 about how Netflix shapes our compute
   fleet to improve efficiency while maintaining reliability. It covers how we
   think about hardware selection, workload placement, resource utilization, and
