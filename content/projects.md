@@ -10,6 +10,18 @@ Below are some of my projects roughly categorized by area.
 Distributed Systems
 -------------------
 
+* [`tx`](https://github.com/jolynch/tx) high-performance file transfer tool
+  written in Go that keeps SSD, network, and CPU busy together, with up to 10x
+  the throughput of `rsync` on large servers. To ensure optimal performance
+  no matter the files and hardware it auto-tunes parallelism, batches small
+  files, splits large files across TCP streams, backgrounds `fdatasync` work
+  and adaptively compresses optimally. It can even mirror the source's page
+  cache on the receiver so p99 latencies don't suffer after the transfer. On
+  the security side, it features line-rate encryption with flexible keying
+  allowing secure _and_ fast transfers. Finally it handles important cloud
+  realities of slow or contended disks with sampled or time-budgeted
+  verification, and a gentle mode that limits source CPU and bandwidth to
+  make it useful for moving data off busy production hosts.
 * [`service-capacity-modeling`](https://github.com/Netflix-Skunkworks/service-capacity-modeling)
   library for capacity planning (determining which kind and how much of a
   computer to buy) for a particular workload such as Apache Cassandra or
@@ -20,12 +32,6 @@ Distributed Systems
   grabbing a core dump) when they enter JVM death spirals. This is basically an
   extension of [`jvmkill`](https://github.com/airlift/jvmkill) that also
   detects GC spirals of death.
-* [`tx`](https://github.com/jolynch/tx) high-performance file transfer tool
-  written in Go that saturates SSD, network, and CPU simultaneously to copy
-  directories and files up to 10x faster than `rsync`. Adaptively sizes TCP
-  connection pools, switches between no compression, `lz4`, and `zstd` based
-  on observed read/write latencies, and moves durability off the critical
-  path with batched background `fsync`s and sampled verification.
 * [`synapse`](https://github.com/airbnb/synapse) and
   [`nerve`](https://github.com/airbnb/nerve) service mesh aka SmartStack. I help
   maintain and have contributed significant features to Airbnb's service mesh,
